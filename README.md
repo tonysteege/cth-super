@@ -21,10 +21,12 @@ stays the CMS, Super stays the host.
 1. Super > Site > Settings > Code > **Head**: replace the Ult line with
 
    ```html
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tonysteege/cth-super@main/cth-ui.css">
+   <link rel="stylesheet" href="https://cth-super.tonysteege.workers.dev/cth-ui.css">
    ```
 
-   (Until the repo is public, paste the contents of `cth-ui.css` into Code > **CSS** instead.)
+   This is a Cloudflare Worker serving `dist/` with `Cache-Control: no-cache`, so a deploy
+   shows on the next reload. `https://cdn.jsdelivr.net/gh/tonysteege/cth-super@main/cth-ui.css`
+   also works but caches for up to 12 hours.
 
 2. Code > **CSS**: delete the three Ult leftovers if they are there
    (`.notion-callout:not([class*="bg-"]) { background-color: #fff !important }`,
@@ -104,10 +106,9 @@ runs, so they do not appear in the static preview; check those on the live site.
 
 ## Publishing changes
 
-Push to `main`. jsdelivr caches `@main` for up to 12 hours; to see a change now, purge:
-
 ```bash
-curl -s https://purge.jsdelivr.net/gh/tonysteege/cth-super@main/cth-ui.css
+./ship.sh "what changed"
 ```
 
-Or pin a tag (`@v1`) in the Super head and bump it on each release.
+Commits, pushes to GitHub, deploys the Worker (live in a few seconds), purges jsdelivr.
+Then reload the site.

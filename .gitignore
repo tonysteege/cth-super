@@ -1,3 +1,5 @@
 preview/*.html
 preview/*.png
+dist/
 .DS_Store
+.wrangler/
