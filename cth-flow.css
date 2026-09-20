@@ -1,0 +1,317 @@
+/*
+ * cth-flow.css
+ * Flow-inspired landing page layer for the Super home page.
+ * Notion remains the CMS. cth-ui.css remains the base design system.
+ */
+@import url("./cth-ui.css");
+
+:root {
+  --flow-max: 76rem;
+  --flow-section: clamp(4.5rem, 8vw, 8rem);
+  --flow-grid: 1.25rem;
+  --flow-ink: oklch(0.145 0 0);
+  --flow-panel: color-mix(in oklab, var(--muted) 58%, var(--background));
+  --flow-line: color-mix(in oklab, var(--border) 82%, transparent);
+}
+
+html.theme-dark {
+  --flow-ink: oklch(0.985 0 0);
+  --flow-panel: color-mix(in oklab, var(--card) 76%, var(--background));
+  --flow-line: color-mix(in oklab, var(--border) 92%, transparent);
+}
+
+/* Page frame */
+.page__index {
+  background:
+    radial-gradient(70rem 34rem at 50% -12rem, color-mix(in oklab, var(--brand) 12%, transparent), transparent 72%),
+    var(--background);
+}
+.page__index .notion-root.max-width {
+  max-width: var(--flow-max);
+  padding-inline: clamp(1.25rem, 4vw, 3rem);
+}
+.page__index .super-content {
+  padding-bottom: 0;
+}
+.page__index .notion-divider {
+  max-width: 10rem;
+  margin: var(--flow-section) auto;
+  border-color: var(--flow-line);
+}
+
+/* Navigation */
+.page__index .super-navbar {
+  height: 4.5rem;
+  border-bottom-color: transparent;
+  background: color-mix(in oklab, var(--background) 76%, transparent);
+}
+.page__index .super-navbar__content {
+  max-width: var(--flow-max);
+  padding-inline: clamp(1.25rem, 4vw, 3rem);
+}
+.page__index .super-navbar__cta,
+.page__index .notion-button,
+.page__index .highlighted-background:has(> a.notion-link) {
+  min-height: 2.75rem;
+  border-radius: 999px;
+  padding-inline: 1.25rem;
+}
+
+/* Hero */
+:root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child {
+  width: min(72rem, calc(100vw - 2.5rem));
+  min-height: clamp(34rem, 68vh, 48rem);
+  justify-content: center;
+  padding: clamp(5rem, 10vw, 9rem) 0 clamp(4rem, 8vw, 7rem);
+  margin-bottom: 0;
+  position: relative;
+  isolation: isolate;
+}
+:root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 9% 5% 7%;
+  border-radius: 2rem;
+  background:
+    linear-gradient(145deg, color-mix(in oklab, var(--brand) 9%, var(--background)), transparent 48%),
+    var(--flow-panel);
+  border: 1px solid var(--flow-line);
+  box-shadow: 0 24px 80px rgb(0 0 0 / 0.06);
+}
+:root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child h1.notion-heading {
+  max-width: 14ch;
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+  font-weight: 760;
+  margin-inline: auto;
+}
+:root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child .notion-text__content {
+  max-width: 42rem;
+  font-size: clamp(1rem, 1.7vw, 1.25rem);
+  line-height: 1.55;
+}
+:root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child .highlighted-background:has(> a.notion-link) {
+  min-height: 3rem;
+  margin-top: 1.5rem;
+  background: var(--flow-ink);
+  color: var(--background);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+}
+
+/* Primary offer split */
+.page__index .notion-root > .notion-column-list:first-of-type {
+  gap: var(--flow-grid);
+  margin: 0 0 var(--flow-section);
+}
+.page__index .notion-root > .notion-column-list:first-of-type .notion-callout {
+  min-height: 15rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border-radius: 1.25rem;
+  border: 1px solid var(--flow-line);
+  background: var(--card);
+  position: relative;
+  overflow: hidden;
+  transition: transform 180ms ease-out, border-color 180ms ease-out;
+}
+.page__index .notion-root > .notion-column-list:first-of-type .notion-callout::after {
+  content: "→";
+  position: absolute;
+  right: 1.5rem;
+  bottom: 1.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--foreground);
+  color: var(--background);
+  font-size: 1.1rem;
+}
+.page__index .notion-root > .notion-column-list:first-of-type .notion-callout:hover {
+  transform: translateY(-3px);
+  border-color: var(--ring);
+}
+.page__index .notion-root > .notion-column-list:first-of-type .notion-callout__icon {
+  display: none;
+}
+.page__index .notion-root > .notion-column-list:first-of-type .notion-heading {
+  max-width: 11ch;
+  font-size: clamp(1.65rem, 3vw, 2.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+/* Project and program showcase cards from Notion quote grids */
+.page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--flow-line);
+  border-radius: 1.25rem;
+  background: var(--card);
+}
+.page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child > .notion-image {
+  order: -1;
+  margin: 0;
+}
+.page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child .notion-image img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border: 0;
+  border-radius: 0;
+  transition: transform 360ms ease-out;
+}
+.page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child:hover .notion-image img {
+  transform: scale(1.025);
+}
+.page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child .notion-heading,
+.page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child > .notion-text {
+  margin-inline: 1.5rem;
+}
+.page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child .notion-heading {
+  margin-top: 1.4rem;
+  font-size: 1.35rem;
+}
+.page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child > .notion-text:last-child {
+  margin-bottom: 1.5rem;
+}
+.page__index .notion-column-list:has(> .notion-column > .notion-quote.bg-gray:first-child) {
+  gap: var(--flow-grid);
+  margin-block: var(--flow-grid);
+}
+
+/* Three-point value section */
+.page__index .notion-divider + .notion-column-list {
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin-block: var(--flow-section);
+}
+.page__index .notion-divider + .notion-column-list .notion-column {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--flow-line);
+}
+.page__index .notion-divider + .notion-column-list .notion-heading {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+.page__index .notion-divider + .notion-column-list .notion-text {
+  color: var(--muted-foreground);
+  font-size: 0.95rem;
+}
+
+/* FAQ */
+.page__index .notion-heading:has(.notion-semantic-string),
+.page__index .notion-toggle {
+  scroll-margin-top: 6rem;
+}
+.page__index .notion-root > .notion-heading__anchor + h2.notion-heading {
+  max-width: 50rem;
+  margin-inline: auto;
+  text-align: center;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+}
+.page__index .notion-root > .notion-toggle {
+  max-width: 50rem;
+  margin-inline: auto;
+}
+.page__index .notion-toggle__summary {
+  min-height: 4rem;
+  font-size: 1rem;
+}
+
+/* Closing CTA */
+.page__index .notion-synced-block .notion-quote.bg-gray,
+.page__index .notion-synced-block-reference .notion-quote.bg-gray {
+  max-width: var(--flow-max);
+  margin: var(--flow-section) auto 0;
+  padding: clamp(2rem, 6vw, 5rem);
+  border: 0;
+  border-radius: 1.5rem 1.5rem 0 0;
+  background: var(--foreground);
+  color: var(--background);
+  text-align: center;
+}
+.page__index .notion-synced-block .notion-quote.bg-gray .notion-heading,
+.page__index .notion-synced-block-reference .notion-quote.bg-gray .notion-heading {
+  color: inherit;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  max-width: 16ch;
+  margin-inline: auto;
+}
+.page__index .notion-synced-block .notion-quote.bg-gray .notion-text,
+.page__index .notion-synced-block-reference .notion-quote.bg-gray .notion-text {
+  max-width: 42rem;
+  margin-inline: auto;
+}
+.page__index .notion-synced-block .notion-quote.bg-gray .notion-image img,
+.page__index .notion-synced-block-reference .notion-quote.bg-gray .notion-image img {
+  border-color: color-mix(in oklab, white 18%, transparent);
+}
+
+/* Authoring controls stay in Notion, not on the public landing page. */
+.page__index .notion-root > .notion-toggle.bg-brown {
+  display: none;
+}
+
+/* Footer */
+.page__index .super-footer {
+  border-top: 0;
+  background: var(--foreground);
+  color: color-mix(in oklab, var(--background) 66%, transparent);
+}
+.page__index .super-footer a.notion-link {
+  color: inherit;
+}
+
+@media (max-width: 860px) {
+  :root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child {
+    min-height: 34rem;
+    padding-block: 5rem 4rem;
+  }
+  :root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child::before {
+    inset: 5% 0;
+    border-radius: 1.5rem;
+  }
+  .page__index .notion-root > .notion-column-list:first-of-type .notion-callout {
+    min-height: 12rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .page__index .notion-root.max-width {
+    padding-inline: 1rem;
+  }
+  .page__index .super-navbar__content {
+    padding-inline: 1rem;
+  }
+  :root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child {
+    width: calc(100vw - 2rem);
+    min-height: 31rem;
+    padding: 4.5rem 1rem 3.75rem;
+  }
+  :root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child h1.notion-heading {
+    font-size: clamp(2.75rem, 15vw, 4.2rem);
+  }
+  .page__index .notion-root > .notion-column-list:first-of-type .notion-callout,
+  .page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child {
+    border-radius: 1rem;
+  }
+  .page__index .notion-synced-block .notion-quote.bg-gray,
+  .page__index .notion-synced-block-reference .notion-quote.bg-gray {
+    margin-inline: -1rem;
+    border-radius: 1.25rem 1.25rem 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page__index *,
+  .page__index *::before,
+  .page__index *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
