@@ -1,0 +1,410 @@
+/*
+ * cth-flow.css
+ * Flow-derived landing-page layer for the Super home page.
+ * The licensed reference stays private in cth-ui. This public file adapts its
+ * layout system to Super's Notion markup without copying template source.
+ */
+@import url("./cth-ui.css");
+
+:root {
+  --flow-max: 80rem;
+  --flow-copy: 44rem;
+  --flow-section-y: clamp(4rem, 7vw, 6rem);
+  --flow-gap: 1.5rem;
+  --flow-line: color-mix(in oklab, var(--border) 90%, transparent);
+  --flow-panel: color-mix(in oklab, var(--muted) 72%, var(--background));
+}
+
+/* Frame and Flow-style section separators */
+.page__index {
+  background: var(--background);
+}
+.page__index .super-content {
+  padding-bottom: 0;
+}
+.page__index .notion-root.max-width {
+  max-width: var(--flow-max);
+  padding-inline: clamp(1rem, 3vw, 2rem);
+}
+.page__index .notion-divider {
+  position: relative;
+  width: 100vw;
+  max-width: none;
+  margin: var(--flow-section-y) 0;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  border-color: var(--flow-line);
+}
+.page__index .notion-divider::before,
+.page__index .notion-divider::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  width: 14px;
+  height: 20px;
+  border-top: 2px solid var(--foreground);
+  border-bottom: 2px solid var(--foreground);
+}
+.page__index .notion-divider::before {
+  left: 0;
+  border-right: 2px solid var(--foreground);
+}
+.page__index .notion-divider::after {
+  right: 0;
+  border-left: 2px solid var(--foreground);
+}
+
+/* Sticky 64px header matching the reference */
+.page__index .super-navbar {
+  height: 4rem;
+  border-bottom: 1px solid var(--flow-line);
+  background: color-mix(in oklab, var(--card) 75%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.page__index .super-navbar__content {
+  max-width: var(--flow-max);
+  padding-inline: clamp(1rem, 3vw, 2rem);
+}
+.page__index .super-navbar__item-list {
+  gap: 0.25rem;
+}
+.page__index .super-navbar__item,
+.page__index .super-navbar__cta,
+.page__index .notion-button,
+.page__index .highlighted-background:has(> a.notion-link) {
+  border-radius: 0.625rem;
+}
+.page__index .super-navbar__cta,
+.page__index .notion-button,
+.page__index .highlighted-background:has(> a.notion-link) {
+  min-height: 2.5rem;
+  padding-inline: 1rem;
+}
+
+/* Hero: centered copy, badge, one CTA, and a large product-stage feeling */
+:root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child {
+  width: min(var(--flow-max), calc(100vw - 2rem));
+  min-height: auto;
+  margin: 0 auto;
+  padding: clamp(4rem, 8vw, 6rem) 1rem clamp(3rem, 6vw, 4.5rem);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+:root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child::before,
+:root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 44%;
+  border: 1px solid var(--flow-line);
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+:root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child::before {
+  width: min(68rem, 92vw);
+  aspect-ratio: 2 / 1;
+  opacity: 0.8;
+}
+:root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child::after {
+  width: min(48rem, 72vw);
+  aspect-ratio: 2 / 1;
+  opacity: 0.65;
+}
+:root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child h1.notion-heading {
+  max-width: 20ch;
+  margin: 0 auto 1rem;
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  font-weight: 650;
+  text-wrap: balance;
+}
+:root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child .notion-text__content {
+  max-width: 39rem;
+  margin-inline: auto;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+:root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child > p.notion-text:has(+ .notion-heading__anchor + .notion-heading) {
+  min-height: 1.75rem;
+  padding: 0.2rem 0.75rem;
+  border: 1px solid var(--flow-line);
+  border-radius: 999px;
+  background: var(--background);
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+:root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child .highlighted-background:has(> a.notion-link) {
+  min-height: 2.75rem;
+  margin-top: 1.25rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  box-shadow: var(--shadow-sm);
+}
+
+/* The first Notion column pair becomes the hero product stage */
+.page__index .notion-root > .notion-column-list:first-of-type {
+  gap: 0;
+  margin: 0 auto var(--flow-section-y);
+  padding: clamp(0.75rem, 2vw, 1rem);
+  border: 1px solid var(--flow-line);
+  border-radius: 0.875rem;
+  background: var(--background);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.page__index .notion-root > .notion-column-list:first-of-type .notion-column {
+  padding: clamp(0.75rem, 2vw, 1rem);
+}
+.page__index .notion-root > .notion-column-list:first-of-type .notion-callout {
+  min-height: 14rem;
+  margin: 0;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border: 1px solid var(--flow-line);
+  border-radius: 0.75rem;
+  background: var(--flow-panel);
+  position: relative;
+  overflow: hidden;
+  box-shadow: none;
+  transition: background 180ms ease-out, transform 180ms ease-out;
+}
+.page__index .notion-root > .notion-column-list:first-of-type .notion-callout:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+.page__index .notion-root > .notion-column-list:first-of-type .notion-callout__icon {
+  display: none;
+}
+.page__index .notion-root > .notion-column-list:first-of-type .notion-callout::after {
+  content: "↗";
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: grid;
+  place-items: center;
+  border-radius: 0.625rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.page__index .notion-root > .notion-column-list:first-of-type .notion-heading {
+  max-width: 13ch;
+  margin-top: 0;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+/* Flow feature grid from Notion image quote cards */
+.page__index .notion-column-list:has(> .notion-column > .notion-quote.bg-gray:first-child) {
+  gap: var(--flow-gap);
+  margin-block: var(--flow-gap);
+}
+.page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  padding: 0 0 1.5rem;
+  overflow: hidden;
+  border: 1px solid var(--flow-line);
+  border-radius: 0.75rem;
+  background: var(--card);
+  transition: border-color 180ms ease-out, transform 180ms ease-out;
+}
+.page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child:hover {
+  border-color: var(--ring);
+  transform: translateY(-2px);
+}
+.page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child > .notion-image {
+  order: -1;
+  margin: 0 0 1.25rem;
+  padding: 0.75rem;
+  background: var(--flow-panel);
+}
+.page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child .notion-image img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border: 1px solid var(--flow-line);
+  border-radius: 0.625rem;
+  transition: transform 300ms ease-out;
+}
+.page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child:hover .notion-image img {
+  transform: scale(1.02);
+}
+.page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child .notion-heading,
+.page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child > .notion-text {
+  margin-inline: 1.5rem;
+}
+.page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child .notion-heading {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+.page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child > .notion-text {
+  color: var(--muted-foreground);
+  font-size: 0.95rem;
+}
+
+/* Three-column benefits band */
+.page__index .notion-divider + .notion-column-list {
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin-block: var(--flow-section-y);
+}
+.page__index .notion-divider + .notion-column-list .notion-column {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--flow-line);
+}
+.page__index .notion-divider + .notion-column-list .notion-heading {
+  margin-top: 0;
+  font-size: 1.25rem;
+  line-height: 1.25;
+}
+.page__index .notion-divider + .notion-column-list .notion-text {
+  color: var(--muted-foreground);
+  font-size: 0.95rem;
+}
+
+/* Shared Flow section-heading treatment */
+.page__index .notion-root > .notion-heading__anchor + h2.notion-heading {
+  max-width: var(--flow-copy);
+  margin: var(--flow-section-y) auto 1rem;
+  text-align: center;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+.page__index .notion-root > .notion-heading__anchor + h2.notion-heading + .notion-text {
+  max-width: 42rem;
+  margin: 0 auto 3rem;
+  color: var(--muted-foreground);
+  text-align: center;
+  font-size: 1.125rem;
+}
+
+/* FAQ: clean accordion, centered like Flow */
+.page__index .notion-root > .notion-toggle {
+  max-width: 50rem;
+  margin-inline: auto;
+}
+.page__index .notion-toggle__summary {
+  min-height: 4rem;
+  padding-block: 1.25rem;
+  font-size: 1rem;
+}
+.page__index .notion-toggle__content {
+  padding-bottom: 1.25rem;
+  font-size: 1rem;
+}
+
+/* CTA: dark rounded panel with centered content */
+.page__index .notion-synced-block .notion-quote.bg-gray,
+.page__index .notion-synced-block-reference .notion-quote.bg-gray {
+  max-width: var(--flow-max);
+  margin: clamp(5rem, 10vw, 10rem) auto var(--flow-section-y);
+  padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4rem);
+  border: 0;
+  border-radius: 1.5rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+.page__index .notion-synced-block .notion-quote.bg-gray .notion-heading,
+.page__index .notion-synced-block-reference .notion-quote.bg-gray .notion-heading {
+  max-width: 22ch;
+  margin: 0 auto 1rem;
+  color: inherit;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+}
+.page__index .notion-synced-block .notion-quote.bg-gray .notion-text,
+.page__index .notion-synced-block-reference .notion-quote.bg-gray .notion-text {
+  max-width: 42rem;
+  margin-inline: auto;
+  color: color-mix(in oklab, var(--primary-foreground) 80%, transparent);
+  font-size: 1.125rem;
+}
+.page__index .notion-synced-block .notion-quote.bg-gray .highlighted-background:has(> a.notion-link),
+.page__index .notion-synced-block-reference .notion-quote.bg-gray .highlighted-background:has(> a.notion-link) {
+  margin-top: 1.5rem;
+  background: var(--primary-foreground);
+  color: var(--primary);
+}
+
+/* The authoring control stays in Notion but never reaches the public site. */
+.page__index .notion-root > .notion-toggle.bg-brown {
+  display: none;
+}
+
+/* Footer follows the reference's clean, light information architecture. */
+.page__index .super-footer {
+  border-top: 1px solid var(--flow-line);
+  background: var(--background);
+  color: var(--muted-foreground);
+}
+.page__index .super-footer a.notion-link {
+  color: var(--muted-foreground);
+}
+.page__index .super-footer a.notion-link:hover {
+  color: var(--foreground);
+}
+
+@media (max-width: 860px) {
+  .page__index .notion-root > .notion-column-list:first-of-type {
+    gap: 0.75rem;
+  }
+  .page__index .notion-root > .notion-column-list:first-of-type .notion-column {
+    padding: 0;
+  }
+  .page__index .notion-root > .notion-column-list:first-of-type .notion-callout {
+    min-height: 11rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .page__index .notion-root.max-width,
+  .page__index .super-navbar__content {
+    padding-inline: 1rem;
+  }
+  :root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child {
+    width: calc(100vw - 2rem);
+    padding: 3.5rem 0 2.75rem;
+  }
+  :root:not([data-cth-hero="off"]) .page__index .notion-root > .notion-quote:first-child h1.notion-heading {
+    font-size: clamp(2.25rem, 11vw, 3rem);
+  }
+  .page__index .notion-divider {
+    margin-block: 4rem;
+  }
+  .page__index .notion-root > .notion-column-list:first-of-type {
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+  }
+  .page__index .notion-root > .notion-column-list:first-of-type .notion-callout,
+  .page__index .notion-column-list .notion-column > .notion-quote.bg-gray:first-child {
+    border-radius: 0.625rem;
+  }
+  .page__index .notion-synced-block .notion-quote.bg-gray,
+  .page__index .notion-synced-block-reference .notion-quote.bg-gray {
+    border-radius: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page__index *,
+  .page__index *::before,
+  .page__index *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
