@@ -913,11 +913,12 @@ html.theme-dark:not([data-cth-hero="off"]) .notion-root > .notion-quote:first-ch
 /* cards: picture on top, title, muted text */
 .page__index .notion-column-list .notion-column > .notion-callout:first-child { border-radius: var(--radius-xl); overflow: hidden; background: var(--card); transition: box-shadow 300ms; }
 .page__index .notion-column-list .notion-column > .notion-callout:first-child:hover { box-shadow: var(--shadow-lg); }
-.page__index .notion-callout__content > .notion-image:first-child { margin: -1.25rem -1.25rem 1.25rem; aspect-ratio: 16 / 9; overflow: hidden; border-bottom: 1px solid var(--border); }
-.page__index .notion-callout__content > .notion-image:first-child img { width: 100%; height: 100%; object-fit: cover; border: 0; border-radius: 0; transition: transform 500ms; }
-.page__index .notion-callout:hover .notion-callout__content > .notion-image:first-child img { transform: scale(1.05); }
-.page__index .notion-column .notion-callout__content > .notion-text:first-child, .page__index .notion-column .notion-callout__content > .notion-image + .notion-text { font-size: 1.25rem; font-weight: 600; line-height: 1.3; margin: 0 0 0.5rem; }
-.page__index .notion-column .notion-callout__content > .notion-text:first-child + .notion-text, .page__index .notion-column .notion-callout__content > .notion-image + .notion-text + .notion-text { color: var(--muted-foreground); font-size: 1rem; }
+.page__index .notion-callout__content > .notion-image { margin: -1.25rem -1.25rem 1.25rem; width: calc(100% + 2.5rem); aspect-ratio: 16 / 9; overflow: hidden; border-bottom: 1px solid var(--border); }
+.page__index .notion-callout__content > .notion-image img { width: 100%; height: 100%; object-fit: cover; border: 0; border-radius: 0; transition: transform 500ms; }
+.page__index .notion-callout:hover .notion-callout__content > .notion-image img { transform: scale(1.05); }
+.notion-callout .notion-caption { display: none; }
+.page__index .notion-column .notion-callout__content > p.notion-text:first-of-type { font-size: 1.25rem; font-weight: 600; line-height: 1.3; margin: 0 0 0.5rem; }
+.page__index .notion-column .notion-callout__content > p.notion-text:first-of-type ~ p.notion-text { color: var(--muted-foreground); font-size: 1rem; }
 
 /* testimonials: quotes in columns become shadow cards */
 .page__index .notion-column > .notion-quote:first-child { border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 1.5rem; background: var(--card); box-shadow: var(--shadow-lg); color: var(--muted-foreground); font-size: 1rem; }
