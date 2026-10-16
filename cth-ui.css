@@ -877,3 +877,5 @@ html.theme-dark .notion-column-list:has(.notion-column > .notion-image:only-chil
 
 /* Back-to-back column rows (card grids) sit close together */
 .notion-column-list + .notion-column-list { margin-top: -0.25rem; }
+.notion-column-list:has(.notion-column > .notion-image:only-child) { flex-direction: row !important; flex-wrap: nowrap !important; justify-content: center; }
+.notion-column-list:has(.notion-column > .notion-image:only-child) .notion-column { width: auto !important; flex: 1 1 0; margin: 0 !important; min-width: 0; }
