@@ -1060,3 +1060,10 @@ html.theme-dark .page__index .notion-root > .notion-callout:has(.highlighted-bac
 @media (min-width: 1024px) { .cth-nav__sec { display: inline-flex; } }
 #cth-nav { background: var(--background); }
 #cth-nav.scrolled { background: color-mix(in oklab, var(--card) 75%, transparent); }
+
+/* alt-text captions are clutter on the home page */
+.page__index .notion-image .notion-caption { display: none; }
+/* plan cards: always three across on desktop, equal width */
+.page__index .notion-column-list:has(.notion-callout .notion-heading) { flex-wrap: nowrap; }
+.page__index .notion-column-list:has(.notion-callout .notion-heading) .notion-column { flex: 1 1 0; width: auto !important; min-width: 0; margin: 0 !important; }
+@media (max-width: 860px) { .page__index .notion-column-list:has(.notion-callout .notion-heading) { flex-direction: column; } }
