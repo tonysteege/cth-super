@@ -965,3 +965,28 @@ html.theme-dark .cth-nav__logo img { filter: invert(1); }
 #cth-nav.open .cth-nav__menu { display: flex; }
 @media (max-width: 767px) { .cth-nav__links { display: none; } .cth-nav__burger { display: grid; } }
 .page__index .notion-callout:has(.highlighted-background > a.notion-link) .notion-callout__content .notion-heading + .notion-text { color: color-mix(in oklab, currentColor 80%, transparent); opacity: 1; }
+
+/* 12. Footer (built by cth-studio.js) */
+.super-footer { display: none !important; }
+#cth-foot { font-family: var(--font-sans); border-top: 1px solid var(--border); margin-top: 2rem; }
+.cth-foot__grid { max-width: 80rem; margin: 0 auto; display: grid; gap: 2rem; padding: 2rem 1rem; }
+@media (min-width: 640px) { .cth-foot__grid { padding: 4rem 1.5rem; } }
+@media (min-width: 1024px) { .cth-foot__grid { grid-template-columns: 1fr 2fr; padding: 4rem 2rem 6rem; } }
+.cth-foot__brand img { height: 1.75rem; width: auto; display: block; }
+html.theme-dark .cth-foot__brand img { filter: invert(1); }
+.cth-foot__brand p { margin: 1rem 0 0; color: var(--muted-foreground); }
+.cth-foot__rule { width: 8.75rem; height: 1px; background: var(--border); margin: 1rem 0; }
+.cth-foot__social { display: flex; gap: 1rem; }
+.cth-foot__social a { color: var(--muted-foreground); display: grid; }
+.cth-foot__social a:hover { color: var(--foreground); }
+.cth-foot__cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+@media (min-width: 640px) { .cth-foot__cols { grid-template-columns: repeat(4, 1fr); } .cth-foot__touch { grid-column: span 2; } }
+.cth-foot__h { font-size: 1.125rem; font-weight: 500; margin-bottom: 1.25rem; }
+.cth-foot__col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+.cth-foot__col a { color: var(--muted-foreground); text-decoration: none; transition: color 300ms; }
+.cth-foot__col a:hover { color: var(--foreground); }
+.cth-foot__mail { display: flex; align-items: center; gap: 0.5rem; word-break: break-all; margin-bottom: 1.25rem; }
+.cth-foot__touch .cth-nav__cta { width: fit-content; color: var(--primary-foreground) !important; }
+.cth-foot__legal { max-width: 80rem; margin: 0 auto; padding: 1.5rem 1rem; text-align: center; color: var(--muted-foreground); border-top: 1px solid var(--border); }
+.cth-foot__legal a { color: var(--foreground); font-weight: 500; text-decoration: none; }
+.cth-foot__legal a:hover { text-decoration: underline; }

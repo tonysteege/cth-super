@@ -154,7 +154,7 @@
   var pending = false;
   function applyBlocks() {
     pending = false;
-    buildNav();
+    buildNav(); buildFooter();
     flipHero();
     Object.keys(SEL).forEach(function (key) {
       D.querySelectorAll(SEL[key]).forEach(function (el) {
@@ -209,6 +209,33 @@
   }
   window.addEventListener("scroll", function () { var n = D.getElementById("cth-nav"); if (n) n.classList.toggle("scrolled", window.scrollY > 0); }, { passive: true });
   (function () { var t = ls.get("cth-theme"); if (t) { H.classList.remove("theme-light", "theme-dark"); H.classList.add("theme-" + t); } })();
+
+  /* ---------- site footer (from the live site's Footer rows) ---------- */
+  var FOOT = {
+    blurb: "Accelerate your development.", email: "tonysteege@coachtonyhockey.com", name: "Coach Tony Hockey",
+    social: [["Instagram", "http://instagram.com/coachtonyhockey", '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/>'], ["YouTube", "https://www.youtube.com/@coachtonyhockey1214", '<path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1c.3-1.2.4-2.5.4-3.8s-.1-2.6-.4-3.8Z"/><path d="m10 15 5-3-5-3z"/>']],
+    columns: [
+      ["Programs", [["Skills Lab", "https://coachtonyhockey.com/bookings/join/skills-lab"], ["Sticktimes", "https://coachtonyhockey.com/bookings/"], ["Downhill Skating Camp", "https://coachtonyhockey.com/winter-camp-2026/"]]],
+      ["Explore", [["Pricing", "#Pricing"], ["FAQ", "#FAQ"], ["Book a session", "https://coachtonyhockey.com/bookings/"]]]
+    ]
+  };
+  function buildFooter() {
+    if (D.getElementById("cth-foot")) return;
+    var base = JS_URL.replace(/[^/]*$/, "");
+    var icon = function (d) { return '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + d + "</svg>"; };
+    var cols = FOOT.columns.map(function (c) {
+      return '<div class="cth-foot__col"><div class="cth-foot__h">' + c[0] + "</div><ul>" + c[1].map(function (l) {
+        var href = l[1].charAt(0) === "#" ? (sectionHref(l[1].slice(1)) ? "/" + sectionHref(l[1].slice(1)) : "/") : l[1];
+        return '<li><a href="' + href + '">' + l[0] + "</a></li>";
+      }).join("") + "</ul></div>";
+    }).join("");
+    var f = D.createElement("footer"); f.id = "cth-foot";
+    f.innerHTML = '<div class="cth-foot__grid"><div class="cth-foot__brand"><a href="/"><img src="' + base + 'cth-logo.svg" alt="CTH"></a><p>' + FOOT.blurb + '</p><div class="cth-foot__rule"></div><div class="cth-foot__social">' +
+      FOOT.social.map(function (x) { return '<a href="' + x[1] + '" aria-label="' + x[0] + '">' + icon(x[2]) + "</a>"; }).join("") + "</div></div>" +
+      '<div class="cth-foot__cols">' + cols + '<div class="cth-foot__col cth-foot__touch"><div class="cth-foot__h">Get in touch</div><a class="cth-foot__mail" href="mailto:' + FOOT.email + '">' + icon('<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/>') + FOOT.email + '</a><a class="cth-nav__cta" href="' + NAV.button.href + '">' + NAV.button.text + "</a></div></div></div>" +
+      '<div class="cth-foot__legal">\u00a9' + new Date().getFullYear() + ' <a href="/">' + FOOT.name + "</a></div>";
+    D.body.appendChild(f);
+  }
 
   /* ---------- Style Studio panel ---------- */
   function headCode() {
