@@ -1146,3 +1146,4 @@ html.theme-dark .highlighted-background.bg-gray:has(> a.notion-link), html.theme
 .page__index .notion-root > .notion-callout:has(.notion-column-list .notion-image) .notion-image img { filter: grayscale(1); opacity: 0.8; transition: opacity 200ms, filter 200ms; }
 .page__index .notion-root > .notion-callout:has(.notion-column-list .notion-image) .notion-image img:hover { filter: none; opacity: 1; }
 html.theme-dark .page__index .notion-root > .notion-callout:has(.notion-column-list .notion-image) .notion-image img { filter: grayscale(1) invert(1); }
+.page__index .notion-root > .notion-callout:has(.notion-column-list .notion-image) .notion-callout__content > p.notion-text { text-align: center; font-size: 1.25rem; color: var(--muted-foreground); margin: 0 0 1.5rem; }
