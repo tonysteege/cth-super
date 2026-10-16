@@ -168,6 +168,46 @@
   function schedule() { if (!pending) { pending = true; requestAnimationFrame(applyBlocks); } }
   function applyAll() { applyGlobals(); applyBlocks(); }
 
+
+  /* ---------- site navbar (logo, section links, theme toggle, button) ---------- */
+  var NAV = {
+    links: [["Programs", "Ways to train with me"], ["Pricing", "Pricing"], ["FAQ", "FAQ"]],
+    button: { text: "Book a session", href: "https://coachtonyhockey.com/bookings/" }
+  };
+  function sectionHref(headingText) {
+    var hs = D.querySelectorAll("h2.notion-heading");
+    for (var i = 0; i < hs.length; i++) if (hs[i].textContent.trim() === headingText) return "#" + hs[i].id.replace(/^block-/, "");
+    return null;
+  }
+  function buildNav() {
+    if (D.getElementById("cth-nav")) return;
+    var base = JS_URL.replace(/[^/]*$/, "");
+    var nav = D.createElement("header"); nav.id = "cth-nav";
+    var links = "", mlinks = "";
+    NAV.links.forEach(function (l) {
+      var h = sectionHref(l[1]); if (!h) return;
+      links += '<a href="/' + h + '">' + l[0] + "</a>"; mlinks += '<a href="/' + h + '">' + l[0] + "</a>";
+    });
+    nav.innerHTML = '<div class="cth-nav__bar"><a class="cth-nav__logo" href="/" aria-label="Home"><img src="' + base + 'cth-logo.svg" alt="CTH"></a>' +
+      '<nav class="cth-nav__links">' + links + "</nav><div class=\"cth-nav__actions\">" +
+      '<button class="cth-nav__icon" data-a="theme" aria-label="Toggle theme"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>' +
+      '<a class="cth-nav__cta" href="' + NAV.button.href + '">' + NAV.button.text + "</a>" +
+      '<button class="cth-nav__icon cth-nav__burger" data-a="menu" aria-label="Menu"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button></div></div>' +
+      '<nav class="cth-nav__menu">' + mlinks + "</nav>";
+    D.body.insertBefore(nav, D.body.firstChild);
+    H.classList.add("cth-has-nav");
+    nav.addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) { if (e.target.closest(".cth-nav__menu a")) nav.classList.remove("open"); return; }
+      if (b.dataset.a === "menu") nav.classList.toggle("open");
+      if (b.dataset.a === "theme") {
+        var dark = !H.classList.contains("theme-dark");
+        H.classList.remove("theme-light", "theme-dark"); H.classList.add(dark ? "theme-dark" : "theme-light"); ls.set("cth-theme", dark ? "dark" : "light");
+      }
+    });
+    window.addEventListener("scroll", function () { nav.classList.toggle("scrolled", window.scrollY > 0); }, { passive: true });
+  }
+  (function () { var t = ls.get("cth-theme"); if (t) { H.classList.remove("theme-light", "theme-dark"); H.classList.add("theme-" + t); } })();
+
   /* ---------- Style Studio panel ---------- */
   function headCode() {
     var rows = [];
@@ -248,7 +288,7 @@
   /* ---------- start ---------- */
   load(); applyGlobals(); syncFromNotion();
   function ready() {
-    applyBlocks();
+    applyBlocks(); buildNav();
     var root = D.querySelector(".super-root") || D.body;
     new MutationObserver(schedule).observe(root, { childList: true, subtree: true });
     if (studioOn) buildPanel();
