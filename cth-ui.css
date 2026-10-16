@@ -1207,3 +1207,8 @@ html[data-cth-btn="flat"] .highlighted-background.bg-gray:has(> a.notion-link), 
 .super-content:not(.page__index):not(.cth-landing) .notion-header__icon-wrapper { height: auto; width: auto; margin: 0 0 0.75rem; }
 .super-content:not(.page__index):not(.cth-landing) .notion-header__icon-wrapper svg, .super-content:not(.page__index):not(.cth-landing) .notion-header__icon-wrapper img { width: 3rem; height: 3rem; }
 .super-content:not(.page__index):not(.cth-landing) .notion-header__title-wrapper { margin-bottom: 1.5rem; }
+
+/* equal-width columns for any row of cards or quotes on a landing page */
+:is(.page__index, .cth-landing) .notion-column-list:has(.notion-column > .notion-callout:first-child, .notion-column > .notion-quote:first-child) { flex-wrap: nowrap; gap: 1.5rem; }
+:is(.page__index, .cth-landing) .notion-column-list:has(.notion-column > .notion-callout:first-child, .notion-column > .notion-quote:first-child) .notion-column { flex: 1 1 0; width: auto !important; min-width: 0; margin: 0 !important; }
+@media (max-width: 860px) { :is(.page__index, .cth-landing) .notion-column-list:has(.notion-column > .notion-callout:first-child, .notion-column > .notion-quote:first-child) { flex-direction: column; } }
