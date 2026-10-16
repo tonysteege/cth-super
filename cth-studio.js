@@ -154,7 +154,7 @@
   var pending = false;
   function applyBlocks() {
     pending = false;
-    buildNav(); buildFooter();
+    buildNav(); buildFooter(); addIcons();
     flipHero();
     Object.keys(SEL).forEach(function (key) {
       D.querySelectorAll(SEL[key]).forEach(function (el) {
@@ -170,9 +170,33 @@
   function applyAll() { applyGlobals(); applyBlocks(); }
 
 
+  /* ---------- icon tiles on the skills and pricing cards ---------- */
+  var ICONS = {
+    "skills foundations": '<path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>',
+    "technical skills": '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>',
+    "tactical skills": '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
+    "team skills": '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>',
+    "athletic skills": '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
+    "mindset skills": '<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/>',
+    "sticktime": '<line x1="10" x2="14" y1="2" y2="2"/><line x1="12" x2="15" y1="14" y2="11"/><circle cx="12" cy="14" r="8"/>',
+    "skills lab": '<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>',
+    "downhill skating camp": '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>'
+  };
+  function addIcons() {
+    D.querySelectorAll(".notion-column .notion-callout__content").forEach(function (c) {
+      if (c.querySelector(".cth-ico")) return;
+      var t = c.querySelector("p.notion-text"); if (!t) return;
+      var d = ICONS[t.textContent.trim().toLowerCase()]; if (!d) return;
+      var span = D.createElement("span"); span.className = "cth-ico";
+      span.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">' + d + "</svg>";
+      c.insertBefore(span, c.firstChild);
+    });
+  }
+
   /* ---------- site navbar (logo, section links, theme toggle, button) ---------- */
   var NAV = {
-    links: [["Programs", "Ways to train with me"], ["Pricing", "Pricing"], ["FAQ", "FAQ"]],
+    links: [["Programs", "Ways to train with me"], ["Camps", "https://coachtonyhockey.com/winter-camp-2026/"], ["Blog", "https://coachtonyhockey.com/blog"]],
+    second: { text: "Join Skills Lab", href: "https://coachtonyhockey.com/bookings/join/skills-lab" },
     button: { text: "Book a session", href: "https://coachtonyhockey.com/bookings/" }
   };
   function sectionHref(headingText) {
@@ -186,12 +210,13 @@
     var nav = D.createElement("header"); nav.id = "cth-nav";
     var links = "", mlinks = "";
     NAV.links.forEach(function (l) {
-      var h = sectionHref(l[1]); if (!h) return;
-      links += '<a href="/' + h + '">' + l[0] + "</a>"; mlinks += '<a href="/' + h + '">' + l[0] + "</a>";
+      var url = /^https?:/.test(l[1]) ? l[1] : (sectionHref(l[1]) ? "/" + sectionHref(l[1]) : null); if (!url) return;
+      links += '<a href="' + url + '">' + l[0] + "</a>"; mlinks += '<a href="' + url + '">' + l[0] + "</a>";
     });
     nav.innerHTML = '<div class="cth-nav__bar"><a class="cth-nav__logo" href="/" aria-label="Home"><img src="' + base + 'cth-logo.svg" alt="CTH"></a>' +
       '<nav class="cth-nav__links">' + links + "</nav><div class=\"cth-nav__actions\">" +
       '<button class="cth-nav__icon" data-a="theme" aria-label="Toggle theme"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>' +
+      '<a class="cth-nav__sec" href="' + NAV.second.href + '">' + NAV.second.text + "</a>" +
       '<a class="cth-nav__cta" href="' + NAV.button.href + '">' + NAV.button.text + "</a>" +
       '<button class="cth-nav__icon cth-nav__burger" data-a="menu" aria-label="Menu"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button></div></div>' +
       '<nav class="cth-nav__menu">' + mlinks + "</nav>";
