@@ -1088,8 +1088,8 @@ html.theme-dark .page__index .notion-column-list:has(h3.notion-heading):has(.not
 
 /* testimonials: an initials avatar beside the name */
 .cth-avatar { position: absolute; left: 0; top: 0.15rem; width: 2.5rem; height: 2.5rem; display: grid; place-items: center; border-radius: 999px; background: var(--muted); color: var(--muted-foreground); font-size: 0.8125rem; font-weight: 500; }
-.page__index .notion-column > .notion-quote p.notion-text:has(> strong:only-child) { position: relative; padding-left: 3.25rem; margin-top: 1.25rem; }
-.page__index .notion-column > .notion-quote p.notion-text:has(> strong:only-child) + p.notion-text { padding-left: 3.25rem; margin-top: 0; }
+.page__index .notion-column > .notion-quote p.notion-text:has(> .cth-avatar) { position: relative; padding-left: 3.25rem; margin-top: 1.25rem; }
+.page__index .notion-column > .notion-quote p.notion-text:has(> .cth-avatar) + p.notion-text { padding-left: 3.25rem; margin-top: 0; }
 
 /* call to action: CTH mark watermarks and a dotted sheet above the card */
 .page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 34 500 432' fill='white' fill-opacity='0.09'%3E%3Cpath d='M122.5 34H500L437.36 142.5H184L121.36 251H251L126.87 466L0 246.2Z'/%3E%3Cpath d='M499.5 466H250.5L375 250.36Z'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 34 500 432' fill='white' fill-opacity='0.09'%3E%3Cpath d='M122.5 34H500L437.36 142.5H184L121.36 251H251L126.87 466L0 246.2Z'/%3E%3Cpath d='M499.5 466H250.5L375 250.36Z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-size: 11rem, 11rem; background-position: left -1.5rem bottom -1.25rem, right -1.5rem top -1.25rem; }
