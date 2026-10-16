@@ -930,3 +930,10 @@ html.theme-dark:not([data-cth-hero="off"]) .notion-root > .notion-quote:first-ch
 .page__index .notion-callout:has(.highlighted-background > a.notion-link) .highlighted-background.bg-gray:has(> a.notion-link) { background: transparent; color: inherit; border: 1px solid color-mix(in oklab, var(--primary-foreground) 35%, transparent); }
 html.theme-dark .page__index .notion-callout:has(.highlighted-background > a.notion-link) { background: var(--muted) !important; color: var(--foreground); }
 html.theme-dark .page__index .notion-callout:has(.highlighted-background > a.notion-link) .highlighted-background.bg-blue:has(> a.notion-link) { background: var(--primary); color: var(--primary-foreground); }
+
+/* keep the column inside the viewport (Super's full-width mode pads the page by 96px) */
+.super-content-wrapper { width: 100%; min-width: 0; overflow-x: clip; }
+.super-content { width: 100%; min-width: 0; }
+.notion-root.full-width, .page__index .notion-root { width: 100%; max-width: 80rem; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
+@media (min-width: 640px) { .notion-root.full-width, .page__index .notion-root { padding-left: 1.5rem; padding-right: 1.5rem; } }
+@media (min-width: 1024px) { .notion-root.full-width, .page__index .notion-root { padding-left: 2rem; padding-right: 2rem; } }
