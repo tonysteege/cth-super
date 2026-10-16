@@ -13,7 +13,8 @@ stays the CMS, Super stays the host.
 | File | What |
 | --- | --- |
 | `cth-ui.css` | The stylesheet. Sections: tokens, bridge to Super's variables, base, blocks, databases, patterns, chrome, switches. |
-| `preview.sh` | Fetches the live Home and Blocks pages, swaps in the local CSS, adds a switch bar, writes `preview/*.html` and screenshots light and dark. |
+| `cth-studio.js` | Applies site-wide and per-block style choices and shows the Style Studio panel (`?studio=1`). Guide: [STUDIO-GUIDE.md](STUDIO-GUIDE.md). Section 9 of `cth-ui.css` holds the variants (`data-v` on blocks, `data-cth-*` on `<html>`). |
+| `preview.sh` | Fetches the live Home and Blocks pages, swaps in the local CSS and Studio script, writes `preview/*.html` and screenshots light and dark. |
 | `preview/` | Generated. Open `preview/blocks.html` through `http://localhost:8651` (the `cth-super` server in `~/.claude/launch.json`) or any static server. |
 
 ## Install in Super

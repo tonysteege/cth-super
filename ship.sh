@@ -16,7 +16,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 fi
 git push -q origin main
 rm -rf dist && mkdir dist
-cp cth-ui.css dist/
+cp cth-ui.css cth-studio.js dist/
 printf '/*\n  Cache-Control: no-cache\n  Access-Control-Allow-Origin: *\n' > dist/_headers
 (unset CLOUDFLARE_API_TOKEN; npx --yes wrangler deploy 2>&1 | grep -E "Deployed|Version" )
 curl -s "https://purge.jsdelivr.net/gh/tonysteege/cth-super@main/cth-ui.css" >/dev/null || true

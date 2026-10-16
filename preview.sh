@@ -6,8 +6,8 @@
 #   ./preview.sh home --no-png   just build the HTML (open preview/home.html)
 #
 # What it does: downloads the live page from coachtonyhockey.super.site, swaps
-# the Ult stylesheet for the local cth-ui.css, adds a floating switch bar
-# (theme, colours, radius, width, hero) and writes preview/<page>.html.
+# the Ult stylesheet for the local cth-ui.css, adds the Style Studio panel
+# (open preview/<page>.html?studio=1) and writes preview/<page>.html.
 # Then it screenshots each with headless Chrome into preview/<page>-{light,dark}.png.
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -37,32 +37,8 @@ h = re.sub(r'srcSet="([^"]*)"', lambda m: 'srcSet="' + m.group(1).replace('/_nex
 # swap Ult for the local stylesheet (cache-busted)
 h = re.sub(r'<link[^>]*ult-v2\.css[^>]*>', '', h)
 h = h.replace('</head>', '<link rel="stylesheet" href="../cth-ui.css?v=' + str(pathlib.Path("cth-ui.css").stat().st_mtime_ns) + '"></head>', 1)
-# switch bar
-bar = '''
-<style>
-#cth-bar{position:fixed;right:12px;bottom:12px;z-index:99999;display:flex;gap:6px;flex-wrap:wrap;align-items:center;background:var(--popover,#fff);color:var(--foreground,#111);border:1px solid var(--border,#e5e5e5);border-radius:10px;padding:8px 10px;font:12px/1 Geist,system-ui,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.12)}
-#cth-bar select,#cth-bar button{font:inherit;border:1px solid var(--border,#e5e5e5);background:var(--background,#fff);color:inherit;border-radius:6px;padding:4px 6px}
-#cth-bar label{display:flex;gap:4px;align-items:center;color:var(--muted-foreground,#666)}
-</style>
-<div id="cth-bar">
- <label>theme <select data-k="theme"><option>light</option><option>dark</option></select></label>
- <label>colors <select data-k="colors"><option>themed</option><option>notion</option></select></label>
- <label>radius <select data-k="radius"><option>md</option><option>none</option><option>sm</option><option>lg</option><option>xl</option></select></label>
- <label>width <select data-k="width"><option>prose</option><option>wide</option><option>full</option></select></label>
- <label>hero <select data-k="hero"><option>on</option><option>off</option></select></label>
- <button onclick="location.reload()">reload</button>
-</div>
-<script>
-(function(){
- var q=new URLSearchParams(location.search), html=document.documentElement;
- function apply(k,v){ if(k==='theme'){html.classList.remove('theme-light','theme-dark');html.classList.add('theme-'+v);} else html.setAttribute('data-cth-'+k,v); }
- document.querySelectorAll('#cth-bar select').forEach(function(s){
-   var k=s.dataset.k, v=q.get(k)||localStorage.getItem('cth-'+k); if(v){s.value=v;apply(k,v);}
-   s.onchange=function(){localStorage.setItem('cth-'+k,s.value);apply(k,s.value);};
- });
-})();
-</script>'''
-h = h.replace('</body>', bar + '</body>', 1)
+# Style Studio panel (open the page with ?studio=1)
+h = h.replace('</body>', '<script src="../cth-studio.js?v=' + str(pathlib.Path("cth-studio.js").stat().st_mtime_ns) + '"></script></body>', 1)
 pathlib.Path(f"preview/{p}.html").write_text(h)
 EOF
   rm -f "preview/$p.raw.html"
