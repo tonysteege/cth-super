@@ -154,6 +154,7 @@
   var pending = false;
   function applyBlocks() {
     pending = false;
+    buildNav();
     flipHero();
     Object.keys(SEL).forEach(function (key) {
       D.querySelectorAll(SEL[key]).forEach(function (el) {
@@ -204,8 +205,9 @@
         H.classList.remove("theme-light", "theme-dark"); H.classList.add(dark ? "theme-dark" : "theme-light"); ls.set("cth-theme", dark ? "dark" : "light");
       }
     });
-    window.addEventListener("scroll", function () { nav.classList.toggle("scrolled", window.scrollY > 0); }, { passive: true });
+    nav.classList.toggle("scrolled", window.scrollY > 0);
   }
+  window.addEventListener("scroll", function () { var n = D.getElementById("cth-nav"); if (n) n.classList.toggle("scrolled", window.scrollY > 0); }, { passive: true });
   (function () { var t = ls.get("cth-theme"); if (t) { H.classList.remove("theme-light", "theme-dark"); H.classList.add("theme-" + t); } })();
 
   /* ---------- Style Studio panel ---------- */
@@ -288,7 +290,7 @@
   /* ---------- start ---------- */
   load(); applyGlobals(); syncFromNotion();
   function ready() {
-    applyBlocks(); buildNav();
+    applyBlocks();
     var root = D.querySelector(".super-root") || D.body;
     new MutationObserver(schedule).observe(root, { childList: true, subtree: true });
     if (studioOn) buildPanel();
