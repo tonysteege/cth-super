@@ -17,6 +17,13 @@
     { k: "buttons", label: "Buttons", opts: [["", "Rounded"], ["pill", "Pill"], ["square", "Square"]] },
     { k: "navbar", label: "Navbar", opts: [["", "Blurred"], ["solid", "Solid"], ["clear", "Clear"], ["floating", "Floating"]] },
     { k: "headings", label: "Section Headings", opts: [["", "Plain"], ["rule", "Underline"], ["tick", "Accent Tick"], ["tight", "Tight and Bold"]] },
+    { k: "btn", label: "Button Style", opts: [["", "Flow"], ["flat", "Flat"]] },
+    { k: "dividers", label: "Section Dividers", opts: [["", "Ticks"], ["lines", "Lines"], ["none", "None"]] },
+    { k: "frame", label: "Page Frame", opts: [["", "Framed"], ["full", "Full"]] },
+    { k: "pattern", label: "Background Pattern", opts: [["", "Hatch"], ["none", "None"]] },
+    { k: "grid", label: "Hero Grid", opts: [["", "On"], ["off", "Off"]] },
+    { k: "motion", label: "Animations", opts: [["", "On"], ["off", "Off"]] },
+    { k: "mode", label: "Color Mode", opts: [["", "Light"], ["dark", "Dark"], ["auto", "Follow Visitor"]] },
     { k: "colors", label: "Callout Colors", opts: [["", "Themed"], ["notion", "Notion Colors"]] },
     { k: "hero", label: "Top Quote as Hero", opts: [["", "On"], ["off", "Off"]] }
   ];
@@ -61,7 +68,7 @@
   if (params.get("studio") === "0") { ls.del("cth-studio"); ls.del("cth-studio-cfg"); }
   var studioOn = ls.get("cth-studio") === "1";
 
-  var SETTINGS_URL = (function () { var s = D.currentScript; return (s && s.src ? s.src.replace(/[^/]*$/, "") : "https://cth-super.tonysteege.workers.dev/") + "style.json"; })();
+  var SITE_URL = (function () { var sc = D.currentScript; return (sc && sc.src ? sc.src.replace(/[^/]*$/, "") : "https://cth-super.tonysteege.workers.dev/") + "site.json"; })();
   function fromRows(rows) {
     var map = {}, out = {};
     GLOBALS.concat(BLOCKS).forEach(function (o) { map[o.label.toLowerCase()] = o; });
@@ -75,10 +82,14 @@
     return out;
   }
   function syncFromNotion() {
-    fetch(SETTINGS_URL).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
-      if (!j || !j.rows || !j.rows.length) return;
-      var found = fromRows(j.rows), next = JSON.stringify(found);
-      if (next !== ls.get("cth-notion-cfg")) { ls.set("cth-notion-cfg", next); load(); applyAll(); }
+    fetch(SITE_URL).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+      if (!j || !j.tables || !Object.keys(j.tables).length) return;
+      var changed = false;
+      var style = fromRows(j.tables.style || []), next = JSON.stringify(style);
+      if (Object.keys(style).length && next !== ls.get("cth-notion-cfg")) { ls.set("cth-notion-cfg", next); changed = true; }
+      var site = JSON.stringify({ tables: j.tables, anchors: j.anchors || {} });
+      if (site !== ls.get("cth-site")) { ls.set("cth-site", site); rebuildChrome(); }
+      if (changed) { load(); applyAll(); }
     }).catch(function () {});
   }
   function load() {
@@ -97,6 +108,7 @@
     return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
   }
   function applyGlobals() {
+    applyMode();
     GLOBALS.forEach(function (g) {
       if (cfg[g.k]) H.setAttribute("data-cth-" + g.k, cfg[g.k]); else H.removeAttribute("data-cth-" + g.k);
     });
@@ -144,18 +156,22 @@
     t.nodeValue = t.nodeValue.slice(0, m.index);
     t.parentNode.insertBefore(span, t.nextSibling); t.parentNode.insertBefore(after, span.nextSibling);
     h._cthFlip = span;
-    if (words.length < 2 || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
+    if (words.length < 2 || cfg.motion === "off" || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
     var i = 0;
     setInterval(function () {
       span.classList.add("out");
       setTimeout(function () { i = (i + 1) % words.length; span.textContent = words[i]; span.classList.remove("out"); }, 220);
     }, 2400);
   }
+  function markLanding() {
+    var r = D.querySelector(".notion-root"), sc = D.querySelector(".super-content");
+    if (r && sc && r.firstElementChild && r.firstElementChild.classList.contains("notion-quote")) sc.classList.add("cth-landing");
+  }
   var pending = false, hydrated = false;
   window.addEventListener("load", function () { setTimeout(function () { hydrated = true; schedule(); }, 1200); });
   function applyBlocks() {
     pending = false;
-    buildNav(); buildFooter();
+    buildNav(); buildFooter(); markLanding();
     if (!hydrated) return;
     addIcons(); finishing();
     flipHero();
@@ -227,30 +243,54 @@
     });
   }
 
-  /* ---------- site navbar (logo, section links, theme toggle, button) ---------- */
-  var NAV = {
-    links: [["Programs", "Ways to train with me"], ["Camps", "https://coachtonyhockey.com/winter-camp-2026/"], ["Blog", "https://coachtonyhockey.com/blog"]],
-    second: { text: "Join Skills Lab", href: "https://coachtonyhockey.com/bookings/join/skills-lab" },
-    button: { text: "Book a session", href: "https://coachtonyhockey.com/bookings/" }
+  /* ---------- site navbar and footer, read from the Notion Site Settings page ---------- */
+  var DEF = {
+    navbar: [["Programs", "#Ways to train with me", "Link"], ["Camps", "https://coachtonyhockey.com/winter-camp-2026/", "Link"], ["Blog", "https://coachtonyhockey.com/blog", "Link"], ["Join Skills Lab", "https://coachtonyhockey.com/bookings/join/skills-lab", "Secondary Button"], ["Book a session", "https://coachtonyhockey.com/bookings/", "Button"]],
+    footer: [["Programs", "Skills Lab", "https://coachtonyhockey.com/bookings/join/skills-lab"], ["Programs", "Sticktimes", "https://coachtonyhockey.com/bookings/"], ["Programs", "Downhill Skating Camp", "https://coachtonyhockey.com/winter-camp-2026/"], ["Explore", "Pricing", "#Pricing"], ["Explore", "FAQ", "#FAQ"], ["Explore", "Book a session", "https://coachtonyhockey.com/bookings/"]],
+    site: [["Site Name", "Coach Tony Hockey"], ["Tagline", "Accelerate your development."], ["Email", "tonysteege@coachtonyhockey.com"], ["Instagram", "http://instagram.com/coachtonyhockey"], ["YouTube", "https://www.youtube.com/@coachtonyhockey1214"]]
   };
+  var SOCIAL = {
+    instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/>',
+    youtube: '<path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1c.3-1.2.4-2.5.4-3.8s-.1-2.6-.4-3.8Z"/><path d="m10 15 5-3-5-3z"/>',
+    facebook: '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>',
+    tiktok: '<path d="M9 12a4 4 0 1 0 4 4V3a5 5 0 0 0 5 5"/>',
+    x: '<path d="M4 4l16 16M20 4 4 20"/>'
+  };
+  function siteCfg() { try { return JSON.parse(ls.get("cth-site") || "null") || {}; } catch (e) { return {}; } }
+  function table(name, header) {
+    var t = (siteCfg().tables || {})[name];
+    var rows = (t || DEF[name]).filter(function (r) { return r[0] && r[0].toLowerCase() !== header && r.some(Boolean); });
+    return rows.length ? rows : DEF[name];
+  }
   function sectionHref(headingText) {
+    var a = (siteCfg().anchors || {})[headingText]; if (a) return "#" + a;
     var hs = D.querySelectorAll("h2.notion-heading");
     for (var i = 0; i < hs.length; i++) if (hs[i].textContent.trim() === headingText) return "#" + hs[i].id.replace(/^block-/, "");
     return null;
   }
+  function href(v) {
+    v = (v || "").trim();
+    if (v.charAt(0) === "#") { var h = sectionHref(v.slice(1)); return h ? "/" + h : "/"; }
+    return v;
+  }
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function chrome() {
+    var site = {}; table("site", "setting").forEach(function (r) { site[r[0].toLowerCase()] = r[1]; });
+    return { nav: table("navbar", "label"), foot: table("footer", "column"), site: site };
+  }
   function buildNav() {
     if (D.getElementById("cth-nav")) return;
-    var base = JS_URL.replace(/[^/]*$/, "");
-    var nav = D.createElement("header"); nav.id = "cth-nav";
-    var links = "", mlinks = "";
-    NAV.links.forEach(function (l) {
-      var url = /^https?:/.test(l[1]) ? l[1] : (sectionHref(l[1]) ? "/" + sectionHref(l[1]) : null); if (!url) return;
-      links += '<a href="' + url + '">' + l[0] + "</a>"; mlinks += '<a href="' + url + '">' + l[0] + "</a>";
+    var c = chrome(), base = SITE_URL.replace(/[^/]*$/, "");
+    var links = "", mlinks = "", actions = "";
+    c.nav.forEach(function (r) {
+      var type = (r[2] || "Link").toLowerCase(), url = esc(href(r[1])), label = esc(r[0]);
+      if (type === "button") actions += '<a class="cth-nav__cta" href="' + url + '">' + label + "</a>";
+      else if (type.indexOf("secondary") === 0) actions += '<a class="cth-nav__sec" href="' + url + '">' + label + "</a>";
+      else { links += '<a href="' + url + '">' + label + "</a>"; mlinks += '<a href="' + url + '">' + label + "</a>"; }
     });
-    nav.innerHTML = '<div class="cth-nav__bar"><a class="cth-nav__logo" href="/" aria-label="Home"><img src="' + base + 'cth-logo.svg" alt="CTH"></a>' +
-      '<nav class="cth-nav__links">' + links + "</nav><div class=\"cth-nav__actions\">" +
-            '<a class="cth-nav__sec" href="' + NAV.second.href + '">' + NAV.second.text + "</a>" +
-      '<a class="cth-nav__cta" href="' + NAV.button.href + '">' + NAV.button.text + "</a>" +
+    var nav = D.createElement("header"); nav.id = "cth-nav";
+    nav.innerHTML = '<div class="cth-nav__bar"><a class="cth-nav__logo" href="/" aria-label="' + esc(c.site["site name"] || "Home") + '"><img src="' + base + 'cth-logo.svg" alt="' + esc(c.site["site name"] || "Home") + '"></a>' +
+      '<nav class="cth-nav__links">' + links + '</nav><div class="cth-nav__actions">' + actions +
       '<button class="cth-nav__icon cth-nav__burger" data-a="menu" aria-label="Menu"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button></div></div>' +
       '<nav class="cth-nav__menu">' + mlinks + "</nav>";
     D.body.insertBefore(nav, D.body.firstChild);
@@ -262,39 +302,38 @@
     nav.classList.toggle("scrolled", window.scrollY > 0);
   }
   window.addEventListener("scroll", function () { var n = D.getElementById("cth-nav"); if (n) n.classList.toggle("scrolled", window.scrollY > 0); }, { passive: true });
-  /* The site is always light. */
-  (function () {
-    function lock() { if (!H.classList.contains("theme-light") || H.classList.contains("theme-dark")) { H.classList.remove("theme-dark"); H.classList.add("theme-light"); } }
-    lock(); ls.del("cth-theme");
-    new MutationObserver(lock).observe(H, { attributes: true, attributeFilter: ["class"] });
-  })();
-
-  /* ---------- site footer (from the live site's Footer rows) ---------- */
-  var FOOT = {
-    blurb: "Accelerate your development.", email: "tonysteege@coachtonyhockey.com", name: "Coach Tony Hockey",
-    social: [["Instagram", "http://instagram.com/coachtonyhockey", '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/>'], ["YouTube", "https://www.youtube.com/@coachtonyhockey1214", '<path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1c.3-1.2.4-2.5.4-3.8s-.1-2.6-.4-3.8Z"/><path d="m10 15 5-3-5-3z"/>']],
-    columns: [
-      ["Programs", [["Skills Lab", "https://coachtonyhockey.com/bookings/join/skills-lab"], ["Sticktimes", "https://coachtonyhockey.com/bookings/"], ["Downhill Skating Camp", "https://coachtonyhockey.com/winter-camp-2026/"]]],
-      ["Explore", [["Pricing", "#Pricing"], ["FAQ", "#FAQ"], ["Book a session", "https://coachtonyhockey.com/bookings/"]]]
-    ]
-  };
   function buildFooter() {
     if (D.getElementById("cth-foot")) return;
-    var base = JS_URL.replace(/[^/]*$/, "");
+    var c = chrome(), base = SITE_URL.replace(/[^/]*$/, "");
     var icon = function (d) { return '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + d + "</svg>"; };
-    var cols = FOOT.columns.map(function (c) {
-      return '<div class="cth-foot__col"><div class="cth-foot__h">' + c[0] + "</div><ul>" + c[1].map(function (l) {
-        var href = l[1].charAt(0) === "#" ? (sectionHref(l[1].slice(1)) ? "/" + sectionHref(l[1].slice(1)) : "/") : l[1];
-        return '<li><a href="' + href + '">' + l[0] + "</a></li>";
-      }).join("") + "</ul></div>";
+    var order = [], groups = {};
+    c.foot.forEach(function (r) { if (!groups[r[0]]) { groups[r[0]] = []; order.push(r[0]); } groups[r[0]].push(r); });
+    var cols = order.map(function (name) {
+      return '<div class="cth-foot__col"><div class="cth-foot__h">' + esc(name) + "</div><ul>" + groups[name].map(function (r) { return '<li><a href="' + esc(href(r[2])) + '">' + esc(r[1]) + "</a></li>"; }).join("") + "</ul></div>";
     }).join("");
+    var social = Object.keys(SOCIAL).filter(function (k) { return c.site[k]; }).map(function (k) { return '<a href="' + esc(c.site[k]) + '" aria-label="' + k + '">' + icon(SOCIAL[k]) + "</a>"; }).join("");
+    var btn = c.nav.filter(function (r) { return (r[2] || "").toLowerCase() === "button"; })[0];
     var f = D.createElement("footer"); f.id = "cth-foot";
-    f.innerHTML = '<div class="cth-foot__grid"><div class="cth-foot__brand"><a href="/"><img src="' + base + 'cth-logo.svg" alt="CTH"></a><p>' + FOOT.blurb + '</p><div class="cth-foot__rule"></div><div class="cth-foot__social">' +
-      FOOT.social.map(function (x) { return '<a href="' + x[1] + '" aria-label="' + x[0] + '">' + icon(x[2]) + "</a>"; }).join("") + "</div></div>" +
-      '<div class="cth-foot__cols">' + cols + '<div class="cth-foot__col cth-foot__touch"><div class="cth-foot__h">Get in touch</div><a class="cth-foot__mail" href="mailto:' + FOOT.email + '">' + icon('<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/>') + FOOT.email + '</a><a class="cth-nav__cta" href="' + NAV.button.href + '">' + NAV.button.text + "</a></div></div></div>" +
-      '<div class="cth-foot__legal">\u00a9' + new Date().getFullYear() + ' <a href="/">' + FOOT.name + "</a></div>";
+    f.innerHTML = '<div class="cth-foot__grid"><div class="cth-foot__brand"><a href="/"><img src="' + base + 'cth-logo.svg" alt="' + esc(c.site["site name"] || "") + '"></a><p>' + esc(c.site.tagline || "") + '</p>' + (social ? '<div class="cth-foot__rule"></div><div class="cth-foot__social">' + social + "</div>" : "") + "</div>" +
+      '<div class="cth-foot__cols">' + cols + '<div class="cth-foot__col cth-foot__touch"><div class="cth-foot__h">Get in touch</div>' +
+      (c.site.email ? '<a class="cth-foot__mail" href="mailto:' + esc(c.site.email) + '">' + icon('<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/>') + esc(c.site.email) + "</a>" : "") +
+      (btn ? '<a class="cth-nav__cta" href="' + esc(href(btn[1])) + '">' + esc(btn[0]) + "</a>" : "") + "</div></div></div>" +
+      '<div class="cth-foot__legal">\u00a9' + new Date().getFullYear() + ' <a href="/">' + esc(c.site["site name"] || "") + "</a></div>";
     D.body.appendChild(f);
   }
+  function rebuildChrome() {
+    var n = D.getElementById("cth-nav"), f = D.getElementById("cth-foot");
+    if (n) n.remove(); if (f) f.remove();
+    if (D.body) { buildNav(); buildFooter(); }
+  }
+
+  /* ---------- color mode: light by default, or dark, or follow the visitor ---------- */
+  function applyMode() {
+    var want = cfg.mode === "dark" ? "dark" : (cfg.mode === "auto" && window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    var have = H.classList.contains("theme-dark") ? "dark" : "light";
+    if (have !== want || !H.classList.contains("theme-" + want)) { H.classList.remove("theme-light", "theme-dark"); H.classList.add("theme-" + want); }
+  }
+  new MutationObserver(function () { applyMode(); }).observe(H, { attributes: true, attributeFilter: ["class"] });
 
   /* ---------- Style Studio panel ---------- */
   function headCode() {
