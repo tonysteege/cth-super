@@ -154,7 +154,7 @@
   var pending = false;
   function applyBlocks() {
     pending = false;
-    buildNav(); buildFooter(); addIcons();
+    buildNav(); buildFooter(); addIcons(); finishing();
     flipHero();
     Object.keys(SEL).forEach(function (key) {
       D.querySelectorAll(SEL[key]).forEach(function (el) {
@@ -190,6 +190,37 @@
       var span = D.createElement("span"); span.className = "cth-ico";
       span.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">' + d + "</svg>";
       c.insertBefore(span, c.firstChild);
+    });
+  }
+
+  /* ---------- finishing details: title icons, avatars, pricing panels ---------- */
+  var HICONS = {
+    "skills lab membership": ICONS["skills lab"],
+    "on-ice sticktimes": '<path d="m10 20-1.25-2.5L6 18"/><path d="M10 4 8.75 6.5 6 6"/><path d="m14 20 1.25-2.5L18 18"/><path d="m14 4 1.25 2.5L18 6"/><path d="m17 21-3-6h-4"/><path d="m17 3-3 6 1.5 3"/><path d="M2 12h6.5L10 9"/><path d="m20 10-1.5 2 1.5 2"/><path d="M22 12h-6.5L14 15"/><path d="m4 10 1.5 2L4 14"/><path d="m7 21 3-6-1.5-3"/><path d="m7 3 3 6h4"/>',
+    "hybrid sticktimes": '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
+    "downhill skating camp": '<path d="m8 3 4 8 5-5 5 15H2L8 3z"/>'
+  };
+  function svgIcon(d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">' + d + "</svg>"; }
+  function finishing() {
+    D.querySelectorAll(".notion-column h3.notion-heading").forEach(function (h) {
+      if (h.querySelector(".cth-hicon")) return;
+      var d = HICONS[h.textContent.trim().toLowerCase()]; if (!d) return;
+      var s = D.createElement("span"); s.className = "cth-hicon"; s.innerHTML = svgIcon(d); h.insertBefore(s, h.firstChild);
+    });
+    D.querySelectorAll(".notion-column > .notion-quote").forEach(function (q) {
+      var st = q.querySelector("p.notion-text > strong"); if (!st || q.querySelector(".cth-avatar")) return;
+      var ini = st.textContent.replace(/[^A-Za-z ]/g, "").trim().split(/\s+/).map(function (w) { return w.charAt(0); }).join("").slice(0, 2).toUpperCase();
+      var a = D.createElement("span"); a.className = "cth-avatar"; a.textContent = ini; st.parentNode.insertBefore(a, st);
+    });
+    D.querySelectorAll(".notion-column-list .notion-callout .notion-callout__content").forEach(function (c) {
+      if (c.querySelector(".cth-panel") || !c.querySelector("h2.notion-heading")) return;
+      var kids = Array.prototype.slice.call(c.childNodes), btn = null;
+      kids.forEach(function (k) { if (k.nodeType === 1 && k.matches && k.matches("p.notion-text") && k.querySelector(".highlighted-background")) btn = k; });
+      if (!btn) return;
+      var panel = D.createElement("div"); panel.className = "cth-panel";
+      var end = kids.indexOf(btn);
+      c.insertBefore(panel, kids[0]);
+      kids.slice(0, end + 1).forEach(function (k) { panel.appendChild(k); });
     });
   }
 
