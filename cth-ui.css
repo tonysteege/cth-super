@@ -888,7 +888,7 @@ html.theme-dark .notion-column-list:has(.notion-column > .notion-image:only-chil
 .page__index { --content-width: 76rem; }
 
 /* page frame: a centred column with hairlines either side, like the site */
-.super-content-wrapper { max-width: 80rem; margin-left: auto; margin-right: auto; border-left: 1px solid var(--border); border-right: 1px solid var(--border); min-height: 100vh; }
+.super-content-wrapper { max-width: 80rem; margin-left: auto; margin-right: auto; border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
 
 /* hero: grid backdrop, icon tile, medium-weight headline, framed photo */
 .page__index .notion-root { isolation: isolate; }
