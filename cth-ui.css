@@ -1168,3 +1168,10 @@ html.theme-dark .page__index .notion-column-list .notion-callout:has(code) .cth-
 .page__index .notion-column-list .notion-callout:has(code) .cth-ico { background: var(--muted); border-color: var(--border); color: var(--foreground); }
 .page__index .notion-column-list .notion-callout:has(code) p.notion-text > code { background: oklch(0.985 0 0); color: oklch(0.145 0 0); }
 html.theme-dark .page__index .notion-column-list .notion-callout:has(code) p.notion-text > code { background: oklch(0.145 0 0); color: oklch(0.985 0 0); }
+
+/* 18. No dead space between the call to action and the footer */
+.page__index .notion-root { padding-bottom: 0 !important; }
+.page__index .super-content { padding-bottom: 0 !important; }
+.page__index .notion-root > .notion-text:last-child { display: none; }
+.page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) { margin-bottom: 3.5rem; }
+#cth-foot { margin-top: 0; }
