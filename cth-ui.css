@@ -964,3 +964,4 @@ html.theme-dark .cth-nav__logo img { filter: invert(1); }
 .cth-nav__menu { flex-direction: column; padding: 0.5rem 1rem 1rem; border-bottom: 1px solid var(--border); background: var(--card); }
 #cth-nav.open .cth-nav__menu { display: flex; }
 @media (max-width: 767px) { .cth-nav__links { display: none; } .cth-nav__burger { display: grid; } }
+.page__index .notion-callout:has(.highlighted-background > a.notion-link) .notion-callout__content .notion-heading + .notion-text { color: color-mix(in oklab, currentColor 80%, transparent); opacity: 1; }
