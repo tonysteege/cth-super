@@ -1071,3 +1071,5 @@ html.theme-dark .page__index .notion-root > .notion-callout:has(.highlighted-bac
 .page__index .notion-column-list:has(.notion-toggle):has(.notion-image) .notion-column { flex: 1 1 0; width: auto !important; min-width: 0; margin: 0 !important; }
 @media (max-width: 860px) { .page__index .notion-column-list:has(.notion-toggle):has(.notion-image) { flex-direction: column; } }
 .page__index .notion-column > .notion-quote strong { color: var(--foreground); font-weight: 600; }
+.cth-nav__cta, .cth-nav__sec { white-space: nowrap; }
+@media (max-width: 480px) { .cth-nav__cta { padding: 0 0.8rem; font-size: 0.875rem; } .cth-nav__actions { gap: 0.5rem; } }
