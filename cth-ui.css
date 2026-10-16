@@ -929,8 +929,6 @@ html.theme-dark:not([data-cth-hero="off"]) .notion-root > .notion-quote:first-ch
 .page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) { background-color: var(--primary) !important; color: var(--primary-foreground); border: 0; border-radius: calc(var(--radius) * 2.2); padding: 5rem 1.5rem; margin: 6rem 0 3rem; box-shadow: var(--shadow-lg); }
 .page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) .notion-heading, .page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) .notion-text { color: inherit; }
 .page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) .notion-heading + .notion-text { opacity: 0.8; }
-.page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) .highlighted-background.bg-blue:has(> a.notion-link), .page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) .highlighted-background.bg-purple:has(> a.notion-link) { background: var(--primary-foreground); color: var(--primary); }
-.page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) .highlighted-background.bg-gray:has(> a.notion-link) { background: transparent; color: inherit; border: 1px solid color-mix(in oklab, var(--primary-foreground) 35%, transparent); }
 html.theme-dark .page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) { background-color: var(--muted) !important; color: var(--foreground); }
 
 /* keep the column inside the viewport (Super's full-width mode pads the page by 96px) */
