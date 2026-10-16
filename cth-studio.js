@@ -249,8 +249,7 @@
     });
     nav.innerHTML = '<div class="cth-nav__bar"><a class="cth-nav__logo" href="/" aria-label="Home"><img src="' + base + 'cth-logo.svg" alt="CTH"></a>' +
       '<nav class="cth-nav__links">' + links + "</nav><div class=\"cth-nav__actions\">" +
-      '<button class="cth-nav__icon" data-a="theme" aria-label="Toggle theme"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>' +
-      '<a class="cth-nav__sec" href="' + NAV.second.href + '">' + NAV.second.text + "</a>" +
+            '<a class="cth-nav__sec" href="' + NAV.second.href + '">' + NAV.second.text + "</a>" +
       '<a class="cth-nav__cta" href="' + NAV.button.href + '">' + NAV.button.text + "</a>" +
       '<button class="cth-nav__icon cth-nav__burger" data-a="menu" aria-label="Menu"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button></div></div>' +
       '<nav class="cth-nav__menu">' + mlinks + "</nav>";
@@ -259,15 +258,16 @@
     nav.addEventListener("click", function (e) {
       var b = e.target.closest("button"); if (!b) { if (e.target.closest(".cth-nav__menu a")) nav.classList.remove("open"); return; }
       if (b.dataset.a === "menu") nav.classList.toggle("open");
-      if (b.dataset.a === "theme") {
-        var dark = !H.classList.contains("theme-dark");
-        H.classList.remove("theme-light", "theme-dark"); H.classList.add(dark ? "theme-dark" : "theme-light"); ls.set("cth-theme", dark ? "dark" : "light");
-      }
     });
     nav.classList.toggle("scrolled", window.scrollY > 0);
   }
   window.addEventListener("scroll", function () { var n = D.getElementById("cth-nav"); if (n) n.classList.toggle("scrolled", window.scrollY > 0); }, { passive: true });
-  (function () { var t = ls.get("cth-theme"); if (t) { H.classList.remove("theme-light", "theme-dark"); H.classList.add("theme-" + t); } })();
+  /* The site is always light. */
+  (function () {
+    function lock() { if (!H.classList.contains("theme-light") || H.classList.contains("theme-dark")) { H.classList.remove("theme-dark"); H.classList.add("theme-light"); } }
+    lock(); ls.del("cth-theme");
+    new MutationObserver(lock).observe(H, { attributes: true, attributeFilter: ["class"] });
+  })();
 
   /* ---------- site footer (from the live site's Footer rows) ---------- */
   var FOOT = {
@@ -336,7 +336,6 @@
     h += '<h4>Whole Site</h4>';
     GLOBALS.forEach(function (g) { h += field(g); });
     h += '<div class="row"><label>Accent Color</label><span><input type="color" data-k="accent" value="' + (cfg.accent || "#54d0ec") + '"> <button data-a="accent-reset" style="border:0;background:none;cursor:pointer;color:var(--muted-foreground)">Reset</button></span></div>';
-    h += '<div class="row"><label>Preview Mode</label><select data-a="mode"><option value="">Site Setting</option><option value="light">Light</option><option value="dark">Dark</option></select></div>';
     h += '<h4>Each Block Type</h4>';
     BLOCKS.forEach(function (b) { h += field(b); });
     h += '<p class="hint">Style one block only: type its look in curly braces at the very start of the block in Notion, like <code>{outline}</code> or <code>{pull}</code>. It is hidden on the live site.</p>';
@@ -346,7 +345,6 @@
     p.addEventListener("change", function (e) {
       var t = e.target, k = t.getAttribute("data-k"), a = t.getAttribute("data-a");
       if (k) { cfg[k] = t.value; save(); applyAll(); }
-      if (a === "mode") { H.classList.remove("theme-light", "theme-dark"); if (t.value) H.classList.add("theme-" + t.value); }
     });
     p.addEventListener("input", function (e) {
       var t = e.target; if (t.getAttribute("data-k") === "accent") { cfg.accent = t.value; save(); applyGlobals(); }
