@@ -61,13 +61,12 @@
   if (params.get("studio") === "0") { ls.del("cth-studio"); ls.del("cth-studio-cfg"); }
   var studioOn = ls.get("cth-studio") === "1";
 
-  var SETTINGS_PATH = "/style-settings";
-  function fromNotionTable(doc) {
+  var SETTINGS_URL = (function () { var s = D.currentScript; return (s && s.src ? s.src.replace(/[^/]*$/, "") : "https://cth-super.tonysteege.workers.dev/") + "style.json"; })();
+  function fromRows(rows) {
     var map = {}, out = {};
     GLOBALS.concat(BLOCKS).forEach(function (o) { map[o.label.toLowerCase()] = o; });
-    doc.querySelectorAll(".notion-table tr").forEach(function (tr) {
-      var td = tr.querySelectorAll("td"); if (td.length < 2) return;
-      var label = td[0].textContent.trim().toLowerCase(), val = td[1].textContent.trim().toLowerCase();
+    rows.forEach(function (r) {
+      var label = (r[0] || "").toLowerCase(), val = (r[1] || "").toLowerCase();
       if (label === "accent color") { out.accent = /^#[0-9a-f]{6}$/.test(val) ? val : ""; return; }
       var o = map[label]; if (!o) return;
       out[o.k] = "";
@@ -76,11 +75,9 @@
     return out;
   }
   function syncFromNotion() {
-    fetch(SETTINGS_PATH, { credentials: "same-origin" }).then(function (r) { return r.ok ? r.text() : ""; }).then(function (html) {
-      if (!html) return;
-      var found = fromNotionTable(new DOMParser().parseFromString(html, "text/html"));
-      if (!Object.keys(found).length) return;
-      var next = JSON.stringify(found);
+    fetch(SETTINGS_URL).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+      if (!j || !j.rows || !j.rows.length) return;
+      var found = fromRows(j.rows), next = JSON.stringify(found);
       if (next !== ls.get("cth-notion-cfg")) { ls.set("cth-notion-cfg", next); load(); applyAll(); }
     }).catch(function () {});
   }
