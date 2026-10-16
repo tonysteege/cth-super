@@ -151,10 +151,13 @@
       setTimeout(function () { i = (i + 1) % words.length; span.textContent = words[i]; span.classList.remove("out"); }, 220);
     }, 2400);
   }
-  var pending = false;
+  var pending = false, hydrated = false;
+  window.addEventListener("load", function () { setTimeout(function () { hydrated = true; schedule(); }, 1200); });
   function applyBlocks() {
     pending = false;
-    buildNav(); buildFooter(); addIcons(); finishing();
+    buildNav(); buildFooter();
+    if (!hydrated) return;
+    addIcons(); finishing();
     flipHero();
     Object.keys(SEL).forEach(function (key) {
       D.querySelectorAll(SEL[key]).forEach(function (el) {
@@ -374,8 +377,7 @@
   load(); applyGlobals(); syncFromNotion();
   function ready() {
     applyBlocks();
-    var root = D.querySelector(".super-root") || D.body;
-    new MutationObserver(schedule).observe(root, { childList: true, subtree: true });
+    new MutationObserver(schedule).observe(D.documentElement, { childList: true, subtree: true });
     if (studioOn) buildPanel();
   }
   if (D.readyState === "loading") D.addEventListener("DOMContentLoaded", ready); else ready();
