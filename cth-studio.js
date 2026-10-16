@@ -132,9 +132,29 @@
     if (key === "cards") return !!el.querySelector(".notion-column > .notion-callout:first-child");
     return true;
   }
+  /* Hero headline: "Accelerate Your {Skating, Puck Control} Development" cycles the words in braces. */
+  function flipHero() {
+    var h = D.querySelector(".notion-root > .notion-quote h1.notion-heading, .notion-root > .notion-quote h2.notion-heading");
+    if (!h || (h._cthFlip && h.contains(h._cthFlip))) return;
+    var t = firstText(h); if (!t) return;
+    var m = /\{([^}]+)\}/.exec(t.nodeValue); if (!m) return;
+    var words = m[1].split(",").map(function (w) { return w.trim(); }).filter(Boolean); if (!words.length) return;
+    var span = D.createElement("span"); span.className = "cth-flip"; span.textContent = words[0];
+    var after = D.createTextNode(t.nodeValue.slice(m.index + m[0].length));
+    t.nodeValue = t.nodeValue.slice(0, m.index);
+    t.parentNode.insertBefore(span, t.nextSibling); t.parentNode.insertBefore(after, span.nextSibling);
+    h._cthFlip = span;
+    if (words.length < 2 || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
+    var i = 0;
+    setInterval(function () {
+      span.classList.add("out");
+      setTimeout(function () { i = (i + 1) % words.length; span.textContent = words[i]; span.classList.remove("out"); }, 220);
+    }, 2400);
+  }
   var pending = false;
   function applyBlocks() {
     pending = false;
+    flipHero();
     Object.keys(SEL).forEach(function (key) {
       D.querySelectorAll(SEL[key]).forEach(function (el) {
         var tag = readTag(key, el);
