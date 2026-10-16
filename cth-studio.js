@@ -50,7 +50,7 @@
     image: ".notion-image", divider: ".notion-divider"
   };
   var TAGBOX = {
-    callout: ".notion-callout__content", toggle: ".notion-toggle__summary", cards: ".notion-callout__content",
+    callout: ".notion-callout__content", toggle: ".notion-toggle__summary .notion-semantic-string", cards: ".notion-callout__content",
     table: "td", code: ".notion-caption", image: ".notion-caption", quote: null, divider: null
   };
   var TAG_RE = /^\s*\{([a-z-]+)\}\s*/i;
