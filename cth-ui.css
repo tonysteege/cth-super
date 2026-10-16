@@ -1204,3 +1204,6 @@ html[data-cth-motion="off"] *, html[data-cth-motion="off"] *::before, html[data-
 /* flat buttons: no ring, no gradient edge */
 html[data-cth-btn="flat"] .highlighted-background.bg-blue:has(> a.notion-link), html[data-cth-btn="flat"] .highlighted-background.bg-purple:has(> a.notion-link), html[data-cth-btn="flat"] .notion-button, html[data-cth-btn="flat"] .cth-nav__cta { background: var(--primary); box-shadow: var(--shadow-xs); text-shadow: none; }
 html[data-cth-btn="flat"] .highlighted-background.bg-gray:has(> a.notion-link), html[data-cth-btn="flat"] .highlighted-background.bg-brown:has(> a.notion-link), html[data-cth-btn="flat"] .cth-nav__sec { background: var(--secondary); box-shadow: none; text-shadow: none; }
+.super-content:not(.page__index):not(.cth-landing) .notion-header__icon-wrapper { height: auto; width: auto; margin: 0 0 0.75rem; }
+.super-content:not(.page__index):not(.cth-landing) .notion-header__icon-wrapper svg, .super-content:not(.page__index):not(.cth-landing) .notion-header__icon-wrapper img { width: 3rem; height: 3rem; }
+.super-content:not(.page__index):not(.cth-landing) .notion-header__title-wrapper { margin-bottom: 1.5rem; }
