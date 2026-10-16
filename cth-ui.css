@@ -862,3 +862,6 @@ html[data-cth-headings="tight"] .notion-root > h1.notion-heading, html[data-cth-
 .notion-divider[data-v="dots"] { border: 0; width: 3.5rem; height: 6px; margin: 2.5rem auto; background: radial-gradient(circle, var(--muted-foreground) 1.5px, transparent 2px) center / 14px 6px repeat-x; }
 .notion-divider[data-v="fade"] { border: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--input), transparent); }
 .notion-divider[data-v="bold"] { border-top: 2px solid var(--foreground); }
+
+/* Home page: hide the sub-page links Notion lists under the content */
+.page__index .notion-root > .notion-page { display: none; }
