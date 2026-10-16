@@ -932,7 +932,6 @@ html.theme-dark:not([data-cth-hero="off"]) .notion-root > .notion-quote:first-ch
 .page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) .highlighted-background.bg-blue:has(> a.notion-link), .page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) .highlighted-background.bg-purple:has(> a.notion-link) { background: var(--primary-foreground); color: var(--primary); }
 .page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) .highlighted-background.bg-gray:has(> a.notion-link) { background: transparent; color: inherit; border: 1px solid color-mix(in oklab, var(--primary-foreground) 35%, transparent); }
 html.theme-dark .page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) { background-color: var(--muted) !important; color: var(--foreground); }
-html.theme-dark .page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) .highlighted-background.bg-blue:has(> a.notion-link) { background: var(--primary); color: var(--primary-foreground); }
 
 /* keep the column inside the viewport (Super's full-width mode pads the page by 96px) */
 .super-content-wrapper { width: 100%; min-width: 0; overflow-x: clip; }
@@ -1006,7 +1005,6 @@ html, body { background: var(--background); }
 :root:not([data-cth-hero="off"]) .notion-root > .notion-quote:first-child::before { margin-bottom: 0; }
 :root:not([data-cth-hero="off"]) .notion-root > .notion-quote:first-child > p.notion-text:has(+ .notion-heading__anchor + .notion-heading) { font-size: 0.75rem; height: 1.5rem; margin: -0.5rem auto 1rem; padding: 0 0.6rem; position: relative; background: var(--background); }
 .notion-root > .notion-quote:first-child + .notion-image { max-width: 64rem; }
-:root:not([data-cth-hero="off"]) .notion-root > .notion-quote:first-child .highlighted-background.bg-blue:has(> a.notion-link) { box-shadow: 0 0 0 1px var(--background), 0 0 0 2px color-mix(in oklab, var(--primary) 40%, transparent); }
 :root:not([data-cth-hero="off"]) .notion-root > .notion-quote:first-child .highlighted-background.bg-blue:has(> a.notion-link)::after { content: ""; width: 0.9rem; height: 0.9rem; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 7h10v10M7 17 17 7'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 7h10v10M7 17 17 7'/%3E%3C/svg%3E") center / contain no-repeat; }
 
 /* skills cards: icon tile above the title (the tile is added by cth-studio.js) */
@@ -1050,8 +1048,8 @@ html, body { background: var(--background); }
 /* call to action: buttons sit on the card's bottom edge in a white group */
 .page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) { position: relative; overflow: visible; padding: 5rem 1.5rem 6.5rem; margin-bottom: 5rem; }
 .page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) p.notion-text:has(> .highlighted-background) { position: absolute; left: 50%; bottom: 0; transform: translate(-50%, 50%); margin: 0; padding: 0.5rem; display: flex; gap: 0.5rem; white-space: nowrap; background: var(--background); border: 2px solid var(--primary); border-radius: 0.9rem; color: var(--foreground); z-index: 2; }
-.page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) .highlighted-background.bg-blue:has(> a.notion-link), .page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) .highlighted-background.bg-purple:has(> a.notion-link) { background: var(--primary); color: var(--primary-foreground); margin: 0; }
-.page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) .highlighted-background.bg-gray:has(> a.notion-link) { background: var(--secondary); color: var(--secondary-foreground); border: 0; margin: 0; }
+.page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) .highlighted-background.bg-blue:has(> a.notion-link), .page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) .highlighted-background.bg-purple:has(> a.notion-link) { color: var(--primary-foreground); margin: 0; }
+.page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) .highlighted-background.bg-gray:has(> a.notion-link) { color: var(--secondary-foreground); margin: 0; }
 html.theme-dark .page__index .notion-root > .notion-callout:has(.highlighted-background > a.notion-link) p.notion-text:has(> .highlighted-background) { border-color: var(--border); }
 
 /* navbar: secondary button */
@@ -1102,3 +1100,42 @@ html.theme-dark .page__index .notion-root > .notion-callout:has(.highlighted-bac
 .cth-panel p.notion-text:has(> .highlighted-background) { margin-bottom: 0; }
 .page__index .notion-callout__content ul.notion-bulleted-list { border-top: 0; padding: 1rem 0.75rem 0.75rem; }
 .page__index .notion-callout__content p.notion-text:has(> code) { top: 1.5rem; right: 1.5rem; z-index: 2; }
+
+/* 15. Buttons: the live site's flow buttons ---------------------------------
+   A 2px ring in the button colour at 60%, a 1px border drawn by a conic gradient
+   (half of it 15% darker) that turns half a circle on hover, 40px tall, 24px
+   side padding, 16px text with a faint text shadow. Primary is dark, secondary
+   is the light grey. */
+@property --cth-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.highlighted-background.bg-blue:has(> a.notion-link), .highlighted-background.bg-purple:has(> a.notion-link), .notion-button, .cth-nav__cta {
+  --cth-a: 0deg; --cth-edge: rgb(0 0 0 / 0.15);
+  border: 1px solid transparent; border-radius: var(--radius); height: 2.5rem; padding: 0 1.5rem; gap: 0.5rem; font-size: 1rem; font-weight: 500;
+  color: var(--primary-foreground);
+  background: linear-gradient(var(--primary), var(--primary)) padding-box, conic-gradient(from calc(90deg + var(--cth-a)) at 50% 50%, var(--primary), var(--primary) 50%, var(--cth-edge) 51% 99%, var(--primary)) border-box;
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--primary) 60%, transparent);
+  text-shadow: 0 1px 1px rgb(0 0 0 / 0.1);
+  transition: --cth-a 500ms;
+}
+.highlighted-background.bg-blue:has(> a.notion-link):hover, .highlighted-background.bg-purple:has(> a.notion-link):hover, .notion-button:hover, .cth-nav__cta:hover {
+  --cth-a: 180deg;
+  background: linear-gradient(var(--primary), var(--primary)) padding-box, conic-gradient(from calc(90deg + var(--cth-a)) at 50% 50%, var(--primary), var(--primary) 50%, var(--cth-edge) 51% 99%, var(--primary)) border-box;
+}
+.highlighted-background.bg-gray:has(> a.notion-link), .highlighted-background.bg-brown:has(> a.notion-link), .cth-nav__sec {
+  --cth-a: 0deg; --cth-edge: rgb(0 0 0 / 0.15);
+  border: 1px solid transparent; border-radius: var(--radius); height: 2.5rem; padding: 0 1.5rem; gap: 0.5rem; font-size: 1rem; font-weight: 500;
+  color: var(--secondary-foreground);
+  background: linear-gradient(var(--secondary), var(--secondary)) padding-box, conic-gradient(from calc(90deg + var(--cth-a)) at 50% 50%, var(--secondary), var(--secondary) 50%, var(--cth-edge) 51% 99%, var(--secondary)) border-box;
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--secondary) 60%, transparent);
+  text-shadow: 0 1px 1px rgb(0 0 0 / 0.05);
+  transition: --cth-a 500ms;
+}
+.highlighted-background.bg-gray:has(> a.notion-link):hover, .highlighted-background.bg-brown:has(> a.notion-link):hover, .cth-nav__sec:hover {
+  --cth-a: 180deg;
+  background: linear-gradient(var(--secondary), var(--secondary)) padding-box, conic-gradient(from calc(90deg + var(--cth-a)) at 50% 50%, var(--secondary), var(--secondary) 50%, var(--cth-edge) 51% 99%, var(--secondary)) border-box;
+}
+html.theme-dark .highlighted-background.bg-blue:has(> a.notion-link), html.theme-dark .highlighted-background.bg-purple:has(> a.notion-link), html.theme-dark .notion-button, html.theme-dark .cth-nav__cta { --cth-edge: rgb(0 0 0 / 0); }
+html.theme-dark .highlighted-background.bg-gray:has(> a.notion-link), html.theme-dark .highlighted-background.bg-brown:has(> a.notion-link), html.theme-dark .cth-nav__sec { --cth-edge: rgb(255 255 255 / 0.6); }
+/* the hero and call to action buttons keep their taller size; spacing leaves room for the ring */
+:root:not([data-cth-hero="off"]) .notion-root > .notion-quote:first-child .highlighted-background:has(> a.notion-link) { height: 2.75rem; margin: 1rem 0.5rem 0; }
+.cth-nav__cta { color: var(--primary-foreground) !important; }
+.cth-nav__sec { color: var(--secondary-foreground) !important; }
