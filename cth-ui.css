@@ -1157,7 +1157,7 @@ html.theme-dark .page__index .notion-root > .notion-callout:has(.notion-column-l
 .page__index .notion-callout__content ul.notion-bulleted-list { padding: 1.25rem 1rem 1rem; }
 .page__index .notion-column-list:has(.cth-panel) .notion-callout:first-child .notion-callout__content > p.notion-text:has(> code) { top: 1.75rem; right: 1.75rem; }
 /* recommended card: a light card whose top panel is black (white in dark mode), made by swapping tokens inside the panel */
-.page__index .notion-column-list .notion-callout:has(code) { box-shadow: 0 20px 40px -16px rgb(0 0 0 / 0.25), 0 0 0 1px var(--ring); }
+.page__index .notion-column-list .notion-callout:has(code) { box-shadow: 0 20px 40px -16px rgb(0 0 0 / 0.25), 0 0 0 1px color-mix(in oklab, var(--foreground) 30%, transparent); }
 .page__index .notion-column-list .notion-callout:has(code) .cth-panel { --foreground: oklch(0.985 0 0); --card: oklch(0.269 0 0); --primary: oklch(0.985 0 0); --primary-foreground: oklch(0.145 0 0); --secondary: oklch(0.269 0 0); --muted: oklch(0.269 0 0); --muted-foreground: oklch(0.708 0 0); --border: oklch(1 0 0 / 14%); --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.4);
   background: oklch(0.145 0 0); color: oklch(0.985 0 0); }
 html.theme-dark .page__index .notion-column-list .notion-callout:has(code) .cth-panel { --foreground: oklch(0.145 0 0); --card: oklch(0.985 0 0); --primary: oklch(0.145 0 0); --primary-foreground: oklch(0.985 0 0); --secondary: oklch(0.94 0 0); --muted: oklch(0.94 0 0); --muted-foreground: oklch(0.45 0 0); --border: oklch(0 0 0 / 12%); --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.08);
