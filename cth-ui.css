@@ -1137,3 +1137,12 @@ html.theme-dark .highlighted-background.bg-gray:has(> a.notion-link), html.theme
 :root:not([data-cth-hero="off"]) .notion-root > .notion-quote:first-child .highlighted-background:has(> a.notion-link) { height: 2.75rem; margin: 1rem 0.5rem 0; }
 .cth-nav__cta { color: var(--primary-foreground) !important; }
 .cth-nav__sec { color: var(--secondary-foreground) !important; }
+
+/* 16. Logo band: a slate panel with the logos in greyscale */
+.page__index .notion-root > .notion-callout:has(.notion-column-list .notion-image) { display: block; background-color: var(--muted) !important; border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 1.5rem 2rem 2rem; margin: 1rem 0 0; box-shadow: none; }
+.page__index .notion-root > .notion-callout:has(.notion-column-list .notion-image) .notion-callout__icon { display: none; }
+.page__index .notion-root > .notion-callout:has(.notion-column-list .notion-image) .notion-callout__content > .notion-text { margin-top: 0; }
+.page__index .notion-root > .notion-callout:has(.notion-column-list .notion-image) .notion-column-list { margin-bottom: 0; }
+.page__index .notion-root > .notion-callout:has(.notion-column-list .notion-image) .notion-image img { filter: grayscale(1); opacity: 0.8; transition: opacity 200ms, filter 200ms; }
+.page__index .notion-root > .notion-callout:has(.notion-column-list .notion-image) .notion-image img:hover { filter: none; opacity: 1; }
+html.theme-dark .page__index .notion-root > .notion-callout:has(.notion-column-list .notion-image) .notion-image img { filter: grayscale(1) invert(1); }
