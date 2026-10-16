@@ -867,16 +867,16 @@ html[data-cth-headings="tight"] .notion-root > h1.notion-heading, html[data-cth-
 .page__index .notion-root > .notion-page { display: none; }
 
 /* Logo band: a column row that holds only images, and its label above it */
-.notion-column-list:has(.notion-column > .notion-image:only-child):not(:has(.notion-heading)) { align-items: center; gap: 2rem; margin: 0.5rem 0 2.5rem; }
-.notion-column-list:has(.notion-column > .notion-image:only-child):not(:has(.notion-heading)) .notion-image { margin: 0; display: flex; justify-content: center; }
-.notion-column-list:has(.notion-column > .notion-image:only-child):not(:has(.notion-heading)) .notion-image img { border: 0; border-radius: 0; max-height: 5.5rem; width: auto; object-fit: contain; }
-.notion-column-list:has(.notion-column > .notion-image:only-child):not(:has(.notion-heading)) .notion-caption { display: none; }
-.notion-text:has(+ .notion-column-list:not(:has(.notion-heading)) .notion-column > .notion-image:only-child) { text-align: center; font-size: 1.25rem; color: var(--muted-foreground); margin: 2rem 0 1.5rem; }
+.notion-column-list:has(.notion-column > .notion-image:only-child):not(:has(.notion-heading, .notion-toggle)) { align-items: center; gap: 2rem; margin: 0.5rem 0 2.5rem; }
+.notion-column-list:has(.notion-column > .notion-image:only-child):not(:has(.notion-heading, .notion-toggle)) .notion-image { margin: 0; display: flex; justify-content: center; }
+.notion-column-list:has(.notion-column > .notion-image:only-child):not(:has(.notion-heading, .notion-toggle)) .notion-image img { border: 0; border-radius: 0; max-height: 5.5rem; width: auto; object-fit: contain; }
+.notion-column-list:has(.notion-column > .notion-image:only-child):not(:has(.notion-heading, .notion-toggle)) .notion-caption { display: none; }
+.notion-text:has(+ .notion-column-list:not(:has(.notion-heading, .notion-toggle)) .notion-column > .notion-image:only-child) { text-align: center; font-size: 1.25rem; color: var(--muted-foreground); margin: 2rem 0 1.5rem; }
 
 /* Back-to-back column rows (card grids) sit close together */
 .notion-column-list + .notion-column-list { margin-top: -0.25rem; }
-.notion-column-list:has(.notion-column > .notion-image:only-child):not(:has(.notion-heading)) { flex-direction: row !important; flex-wrap: nowrap !important; justify-content: center; }
-.notion-column-list:has(.notion-column > .notion-image:only-child):not(:has(.notion-heading)) .notion-column { width: auto !important; flex: 1 1 0; margin: 0 !important; min-width: 0; }
+.notion-column-list:has(.notion-column > .notion-image:only-child):not(:has(.notion-heading, .notion-toggle)) { flex-direction: row !important; flex-wrap: nowrap !important; justify-content: center; }
+.notion-column-list:has(.notion-column > .notion-image:only-child):not(:has(.notion-heading, .notion-toggle)) .notion-column { width: auto !important; flex: 1 1 0; margin: 0 !important; min-width: 0; }
 
 /* 10. coachtonyhockey.com match --------------------------------------------
    The live site is a shadcn Studio template on the Slate theme (tokens above).
