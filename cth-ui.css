@@ -1221,3 +1221,12 @@ html[data-cth-btn="flat"] .highlighted-background.bg-gray:has(> a.notion-link), 
 .super-content:not(.page__index):not(.cth-landing) .notion-root { padding-left: 1rem; padding-right: 1rem; }
 .super-content:not(.page__index):not(.cth-landing) .notion-header__content { padding-left: 1rem; padding-right: 1rem; }
 .super-content:not(.page__index):not(.cth-landing) .notion-header__title, .super-content:not(.page__index):not(.cth-landing) .notion-header__title-wrapper { padding-left: 0; }
+
+/* tables: no outside margin, so the grey header runs to the edge and the last row sits flush */
+.notion-table { margin: 0 !important; }
+.notion-table.col-header tr:first-child td, .notion-table.col-header tr:first-child th { background: var(--muted); }
+/* pages with no cover: no empty banner above the title */
+.notion-header__cover.no-cover { display: none; }
+.super-content:not(.page__index):not(.cth-landing) { padding-top: 0.5rem; }
+.super-content:not(.page__index):not(.cth-landing) .notion-header__content { padding-top: 1.5rem; }
+.super-content:not(.page__index):not(.cth-landing) .notion-header { margin-top: 0; }
