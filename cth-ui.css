@@ -1236,6 +1236,6 @@ html[data-cth-btn="flat"] .highlighted-background.bg-gray:has(> a.notion-link), 
 .super-content:not(.page__index):not(.cth-landing) .notion-to-do { font-size: 1.0625rem; }
 .notion-to-do__content { display: flex; align-items: flex-start; gap: 0.75rem; }
 .notion-to-do__title { line-height: 1.6; font-size: inherit; }
-.notion-to-do__icon { font-size: inherit; display: flex; margin-top: calc((1.6em - 1.125rem) / 2 - 0.18em); }
+.notion-to-do__icon { font-size: inherit; display: flex; align-items: center; justify-content: center; height: 1.6em; width: 1.125rem; margin: 0 !important; }
 .notion-checkbox { width: 1.125rem; height: 1.125rem; flex: 0 0 1.125rem; margin: 0; }
 .notion-checkbox svg { width: 0.875rem; height: 0.875rem; }
