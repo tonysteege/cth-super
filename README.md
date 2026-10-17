@@ -18,7 +18,7 @@ The owner's manual lives in Notion: CTH.com / x. Backend / **Site Guide**. This 
 ## How a change reaches the site
 
 - **Content** (Notion pages): edit in Notion, then Super > Pages > refresh next to Sync.
-- **Look and menus**: edit the Style Settings page tables in Notion. About 30 seconds. No Super step.
+- **Look and menus**: edit the Settings and Menus tables on the Notion page Site Settings (CTH.com / x. Backend). The Style Settings page is retired. About a minute. No Super step.
 - **Code**: edit the files here, `./ship.sh "message"`. If a browser keeps an old copy, fetch with `cache: "reload"` or hard refresh.
 
 ## Super setup (one time per site)
@@ -50,3 +50,11 @@ Super Memberships gate pages by tier from the private Notion database Members (E
 - React hydration: the script waits about a second after load before editing page text, or React discards the edits.
 - Super caches Notion content; refresh Sync after content edits.
 - The worker reads Notion's unofficial public page endpoint. If it fails, the site keeps its cached look.
+
+## Settings database
+
+`worker.js` reads the Site Settings page's Settings table (the row with Status Live) and Menus table through Notion's public queryCollection and returns them in `/site.json` as the same style, site, navbar and footer tables the script always read. New setting checklist: Select column in Settings, entry in GLOBALS or BLOCKS (`cth-studio.js`), `data-cth-*` CSS (`cth-ui.css`), name in `STYLE_PROPS` (`worker.js`), a README line on the Site Settings page.
+
+## Preview limit
+
+Super's editor preview does not run the Head script (verified 2026-10-17). Check the look on cthcom.super.site?x=N instead.

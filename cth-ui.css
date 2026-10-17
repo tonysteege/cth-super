@@ -1306,3 +1306,36 @@ html[data-cth-textsize="large"] .super-content .notion-text, html[data-cth-texts
 html[data-cth-headingw="bold"] .super-content .notion-heading { font-weight: 700; }
 html[data-cth-headingw="xbold"] .super-content .notion-heading { font-weight: 800; }
 html[data-cth-spacing="relaxed"] .super-content .notion-text, html[data-cth-spacing="relaxed"] .super-content .notion-list li { line-height: 1.85; }
+
+/* Settings database, second batch */
+html[data-cth-headfont="serif"] :is(.notion-heading, h1.notion-header__title, .cth-tier h3, .cth-foot__h) { font-family: "Source Serif 4", Georgia, "Times New Roman", serif; }
+html[data-cth-headfont="mono"] :is(.notion-heading, h1.notion-header__title, .cth-tier h3, .cth-foot__h) { font-family: var(--font-mono); letter-spacing: -0.02em; }
+html[data-cth-headsize="small"] .super-content h2.notion-heading { font-size: clamp(1.5rem, 3.2vw, 2rem); }
+html[data-cth-headsize="large"] .super-content h2.notion-heading { font-size: clamp(2.25rem, 5.5vw, 3.5rem); }
+html[data-cth-linkstyle="always"] a.notion-link, html[data-cth-linkstyle="always"] .notion-link.link { text-decoration-color: currentColor; }
+html[data-cth-linkstyle="accent"] a.notion-link, html[data-cth-linkstyle="accent"] .notion-link.link { color: var(--brand); text-decoration-color: color-mix(in oklab, var(--brand) 50%, transparent); }
+html[data-cth-btnsize="small"] :is(.highlighted-background.bg-blue:has(> a.notion-link), .highlighted-background.bg-purple:has(> a.notion-link), .notion-button, .cth-nav__cta) { font-size: 0.8125rem; padding-top: 0.35rem; padding-bottom: 0.35rem; }
+html[data-cth-btnsize="small"] .cth-nav__cta { height: 2rem; }
+html[data-cth-btnsize="large"] :is(.highlighted-background.bg-blue:has(> a.notion-link), .highlighted-background.bg-purple:has(> a.notion-link), .notion-button, .cth-nav__cta) { font-size: 1.0625rem; padding-top: 0.7rem; padding-bottom: 0.7rem; }
+html[data-cth-btnsize="large"] .cth-nav__cta { height: 3rem; padding-left: 1.5rem; padding-right: 1.5rem; }
+html[data-cth-navh="compact"] .cth-nav__bar { height: 3.25rem; }
+html[data-cth-navh="tall"] .cth-nav__bar { height: 5rem; }
+html[data-cth-secspace="compact"] :is(.page__index, .cth-landing) .notion-root > .notion-text:has(+ .notion-heading__anchor + h2.notion-heading) { margin-top: 3.5rem; }
+html[data-cth-secspace="spacious"] :is(.page__index, .cth-landing) .notion-root > .notion-text:has(+ .notion-heading__anchor + h2.notion-heading) { margin-top: 9rem; }
+html[data-cth-heroalign="left"] :root:not([data-cth-hero="off"]) .notion-root > .notion-quote:first-child, html[data-cth-heroalign="left"] .notion-root > .notion-quote:first-child { text-align: left; align-items: flex-start; }
+html[data-cth-heroalign="left"] .notion-root > .notion-quote:first-child::before { margin-left: 0; margin-right: auto; }
+html[data-cth-heroalign="left"] .notion-root > .notion-quote:first-child p.notion-text { margin-left: 0; margin-right: auto; }
+html:not(.theme-dark)[data-cth-bgcolor="soft"] { --background: oklch(0.975 0.004 250); }
+html:not(.theme-dark)[data-cth-bgcolor="warm"] { --background: oklch(0.978 0.012 85); }
+html:not(.theme-dark)[data-cth-borders="medium"] { --border: oklch(0.87 0.015 255); }
+html:not(.theme-dark)[data-cth-borders="strong"] { --border: oklch(0.78 0.02 255); }
+html.theme-dark[data-cth-borders="medium"] { --border: oklch(1 0 0 / 18%); }
+html.theme-dark[data-cth-borders="strong"] { --border: oklch(1 0 0 / 28%); }
+html[data-cth-pricing="accent"] .cth-tier.is-rec { border-color: var(--brand); }
+html[data-cth-pricing="soft"] .cth-tier.is-rec { border: 1px solid var(--border); box-shadow: var(--shadow-md); }
+html[data-cth-imghover="zoom"] .notion-image { overflow: hidden; }
+html[data-cth-imghover="zoom"] .notion-image img { transition: transform 500ms; }
+html[data-cth-imghover="zoom"] .notion-image:hover img { transform: scale(1.03); }
+html[data-cth-footer="minimal"] .cth-foot__cols { display: none; }
+html[data-cth-footer="minimal"] .cth-foot__grid { grid-template-columns: 1fr; text-align: center; padding-bottom: 2rem; }
+html[data-cth-footer="minimal"] .cth-foot__brand { align-items: center; }

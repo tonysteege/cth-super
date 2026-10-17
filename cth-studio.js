@@ -32,7 +32,19 @@
     { k: "cardstyle", label: "Card Style", opts: [["", "Bordered"], ["shadow", "Shadow"], ["flat", "Flat"]] },
     { k: "textsize", label: "Text Size", opts: [["", "Medium"], ["small", "Small"], ["large", "Large"]] },
     { k: "headingw", label: "Heading Weight", opts: [["", "Semibold"], ["bold", "Bold"], ["xbold", "Extra Bold"]] },
-    { k: "spacing", label: "Line Spacing", opts: [["", "Normal"], ["relaxed", "Relaxed"]] }
+    { k: "spacing", label: "Line Spacing", opts: [["", "Normal"], ["relaxed", "Relaxed"]] },
+    { k: "headfont", label: "Heading Font", opts: [["", "Same as Body"], ["serif", "Serif"], ["mono", "Mono"]] },
+    { k: "headsize", label: "Heading Size", opts: [["", "Medium"], ["small", "Small"], ["large", "Large"]] },
+    { k: "linkstyle", label: "Link Style", opts: [["", "Underline on Hover"], ["always", "Always Underlined"], ["accent", "Accent Color"]] },
+    { k: "btnsize", label: "Button Size", opts: [["", "Medium"], ["small", "Small"], ["large", "Large"]] },
+    { k: "navh", label: "Navbar Height", opts: [["", "Standard"], ["compact", "Compact"], ["tall", "Tall"]] },
+    { k: "secspace", label: "Section Spacing", opts: [["", "Comfortable"], ["compact", "Compact"], ["spacious", "Spacious"]] },
+    { k: "heroalign", label: "Hero Alignment", opts: [["", "Center"], ["left", "Left"]] },
+    { k: "bgcolor", label: "Page Background", opts: [["", "White"], ["soft", "Soft Grey"], ["warm", "Warm"]] },
+    { k: "borders", label: "Border Strength", opts: [["", "Subtle"], ["medium", "Medium"], ["strong", "Strong"]] },
+    { k: "pricing", label: "Pricing Highlight", opts: [["", "Black Ring"], ["accent", "Accent Ring"], ["soft", "Soft"]] },
+    { k: "imghover", label: "Image Hover", opts: [["", "None"], ["zoom", "Zoom"]] },
+    { k: "footer", label: "Footer Style", opts: [["", "Standard"], ["minimal", "Minimal"]] }
   ];
   var BLOCKS = [
     { k: "callout", label: "Callouts", opts: [["", "Alert"], ["soft", "Soft"], ["outline", "Outline"], ["solid", "Solid"], ["bar", "Side Bar"], ["brand", "Brand Tint"]] },
@@ -123,7 +135,7 @@
       H.style.setProperty("--brand", cfg.accent);
       H.style.setProperty("--brand-foreground", luminance(cfg.accent) > 0.4 ? "#0a0a0a" : "#fafafa");
     } else { H.style.removeProperty("--brand"); H.style.removeProperty("--brand-foreground"); }
-    var f = FONT_URLS[cfg.font];
+    var f = FONT_URLS[cfg.font] || (cfg.headfont === "serif" ? FONT_URLS.serif : null);
     if (f && !D.getElementById("cth-font-" + cfg.font)) {
       var l = D.createElement("link"); l.rel = "stylesheet"; l.href = f; l.id = "cth-font-" + cfg.font; D.head.appendChild(l);
     }

@@ -8,7 +8,7 @@ const HOME_PAGE = "3fbcf93f-7dd0-8063-ab19-d5e5464be9e1";
 const TIERS = { collection: "48ce2b14-3167-44dd-ba69-f8dc81528dd6", view: "3fccf93f-7dd0-81a8-baaa-000c04d1320f" };
 const SETTINGS_DB = { collection: "2937a8f4-4a83-4496-8f55-0f9e01f402c4", view: "c07e3efc-c3ac-493c-8521-fb3182532597" };
 const MENUS_DB = { collection: "aacd2b21-0a8b-4b42-aaff-2f5cf9490b80", view: "bd89a542-614e-49ed-a826-f0e9d707eb2b" };
-const STYLE_PROPS = ["Color Theme", "Font", "Corners", "Page Width", "Buttons", "Button Style", "Navbar", "Section Headings", "Section Dividers", "Page Frame", "Background Pattern", "Hero Grid", "Animations", "Color Mode", "Callout Colors", "Top Quote as Hero", "Sub-Pages", "Shadows", "Card Style", "Text Size", "Heading Weight", "Line Spacing", "Callouts", "Quotes", "Toggles", "Feature Cards", "Tables", "Code", "Images", "Dividers"];
+const STYLE_PROPS = ["Color Theme", "Font", "Corners", "Page Width", "Buttons", "Button Style", "Navbar", "Section Headings", "Section Dividers", "Page Frame", "Background Pattern", "Hero Grid", "Animations", "Color Mode", "Callout Colors", "Top Quote as Hero", "Sub-Pages", "Shadows", "Card Style", "Text Size", "Heading Weight", "Line Spacing", "Heading Font", "Heading Size", "Link Style", "Button Size", "Navbar Height", "Section Spacing", "Hero Alignment", "Page Background", "Border Strength", "Pricing Highlight", "Image Hover", "Footer Style", "Callouts", "Quotes", "Toggles", "Feature Cards", "Tables", "Code", "Images", "Dividers"];
 const ACCENTS = { Cyan: "#54d0ec", Blue: "#3b82f6", Green: "#22c55e", Orange: "#f97316", Rose: "#f43f5e", Violet: "#8b5cf6" };
 const HOST = "https://coachtonyhockey.notion.site";
 const text = (prop) => (prop || []).map((s) => s[0]).join("").trim();
