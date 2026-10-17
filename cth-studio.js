@@ -88,8 +88,8 @@
       var changed = false;
       var style = fromRows(j.tables.style || []), next = JSON.stringify(style);
       if (Object.keys(style).length && next !== ls.get("cth-notion-cfg")) { ls.set("cth-notion-cfg", next); changed = true; }
-      var site = JSON.stringify({ tables: j.tables, anchors: j.anchors || {} });
-      if (site !== ls.get("cth-site")) { ls.set("cth-site", site); rebuildChrome(); }
+      var site = JSON.stringify({ tables: j.tables, anchors: j.anchors || {}, tiers: j.tiers || [] });
+      if (site !== ls.get("cth-site")) { ls.set("cth-site", site); rebuildChrome(); schedule(); }
       if (changed) { load(); applyAll(); }
     }).catch(function () {});
   }
