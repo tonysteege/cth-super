@@ -27,7 +27,12 @@
     { k: "mode", label: "Color Mode", opts: [["", "Light"], ["dark", "Dark"], ["auto", "Follow Visitor"]] },
     { k: "colors", label: "Callout Colors", opts: [["", "Themed"], ["notion", "Notion Colors"]] },
     { k: "hero", label: "Top Quote as Hero", opts: [["", "On"], ["off", "Off"]] },
-    { k: "subpages", label: "Sub-Pages", opts: [["", "Show"], ["hide", "Hide"]] }
+    { k: "subpages", label: "Sub-Pages", opts: [["", "Show"], ["hide", "Hide"]] },
+    { k: "shadows", label: "Shadows", opts: [["", "Default"], ["none", "None"], ["strong", "Strong"]] },
+    { k: "cardstyle", label: "Card Style", opts: [["", "Bordered"], ["shadow", "Shadow"], ["flat", "Flat"]] },
+    { k: "textsize", label: "Text Size", opts: [["", "Medium"], ["small", "Small"], ["large", "Large"]] },
+    { k: "headingw", label: "Heading Weight", opts: [["", "Semibold"], ["bold", "Bold"], ["xbold", "Extra Bold"]] },
+    { k: "spacing", label: "Line Spacing", opts: [["", "Normal"], ["relaxed", "Relaxed"]] }
   ];
   var BLOCKS = [
     { k: "callout", label: "Callouts", opts: [["", "Alert"], ["soft", "Soft"], ["outline", "Outline"], ["solid", "Solid"], ["bar", "Side Bar"], ["brand", "Brand Tint"]] },
