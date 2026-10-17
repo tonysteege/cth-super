@@ -1249,3 +1249,4 @@ html[data-cth-btn="flat"] .highlighted-background.bg-gray:has(> a.notion-link), 
 .notion-root > .notion-text, .notion-root > .notion-heading, .notion-root h2.notion-heading, .notion-root h3.notion-heading, .notion-root h1.notion-heading { padding-left: 0; }
 /* phones: tighter table cells so tables fit the screen */
 @media (max-width: 640px) { .notion-table__cell { padding: 0.6rem 0.7rem; } .notion-table { font-size: 0.8125rem; } }
+@media (max-width: 640px) { .notion-table td { min-width: 0 !important; max-width: none !important; } }
