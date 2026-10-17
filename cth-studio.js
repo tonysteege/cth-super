@@ -172,6 +172,32 @@
     }
     if (sc._cthSub) sc.setAttribute("data-subpages", sc._cthSub); 
   }
+  /* Offers: the Tiers table (Notion) is drawn as pricing cards in place of its raw table or gallery. */
+  function tierLink(t) {
+    if (t.link) return t.link;
+    if (/session|lesson/i.test(t.type)) return "https://coachtonyhockey.com/bookings/";
+    if (/skills lab/i.test(t.name)) return "https://coachtonyhockey.com/bookings/join/skills-lab";
+    var m = (siteCfg().tables || {}).site, mail = "";
+    (m || []).forEach(function (r) { if (/^email$/i.test(r[0])) mail = r[1]; });
+    return "mailto:" + (mail || "tonysteege@coachtonyhockey.com") + "?subject=" + encodeURIComponent(t.name);
+  }
+  function renderTiers() {
+    var list = siteCfg().tiers; if (!list || !list.length) return;
+    D.querySelectorAll(".notion-collection").forEach(function (col) {
+      if (col._cthTiers || !/^\s*Tiers/i.test(col.textContent)) return;
+      col._cthTiers = true; col.classList.add("cth-tiers-src");
+      var box = D.createElement("div"); box.className = "cth-tiers";
+      box.innerHTML = list.map(function (t) {
+        var price = t.price ? "$" + esc(t.price) : "Free", unit = t.unit ? '<span>' + esc(t.unit) + "</span>" : "";
+        return '<article class="cth-tier' + (t.recommended ? " is-rec" : "") + '"><div class="cth-tier__head"><h3>' + esc(t.name) + "</h3>" + (t.recommended ? '<em>Popular</em>' : "") + "</div>" +
+          (t.summary ? "<p>" + esc(t.summary) + "</p>" : "") +
+          '<div class="cth-tier__price"><b>' + price + "</b>" + unit + "</div>" +
+          '<a class="cth-nav__cta" href="' + esc(tierLink(t)) + '">' + esc(t.button || "Get Started") + "</a>" +
+          (t.features.length ? "<ul>" + t.features.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") + "</ul>" : "") + "</article>";
+      }).join("");
+      col.parentNode.insertBefore(box, col);
+    });
+  }
   function markLanding() {
     var r = D.querySelector(".notion-root"), sc = D.querySelector(".super-content");
     if (r && sc && r.firstElementChild && r.firstElementChild.classList.contains("notion-quote")) sc.classList.add("cth-landing");
@@ -180,7 +206,7 @@
   window.addEventListener("load", function () { setTimeout(function () { hydrated = true; schedule(); }, 1200); });
   function applyBlocks() {
     pending = false;
-    buildNav(); buildFooter(); markLanding(); markSubpages();
+    buildNav(); buildFooter(); markLanding(); markSubpages(); renderTiers();
     if (!hydrated) return;
     addIcons(); finishing();
     flipHero();
