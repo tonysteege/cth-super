@@ -192,8 +192,8 @@
         return '<article class="cth-tier' + (t.recommended ? " is-rec" : "") + '"><div class="cth-tier__head"><h3>' + esc(t.name) + "</h3>" + (t.recommended ? '<em>Popular</em>' : "") + "</div>" +
           (t.summary ? "<p>" + esc(t.summary) + "</p>" : "") +
           '<div class="cth-tier__price"><b>' + price + "</b>" + unit + "</div>" +
-          '<a class="cth-nav__cta" href="' + esc(tierLink(t)) + '">' + esc(t.button || "Get Started") + "</a>" +
-          (t.features.length ? "<ul>" + t.features.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") + "</ul>" : "") + "</article>";
+          (t.features.length ? "<ul>" + t.features.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") + "</ul>" : "<ul></ul>") +
+          '<a class="cth-nav__cta" href="' + esc(tierLink(t)) + '">' + esc(t.button || "Get Started") + "</a></article>";
       }).join("");
       col.parentNode.insertBefore(box, col);
     });
