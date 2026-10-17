@@ -1244,3 +1244,8 @@ html[data-cth-btn="flat"] .highlighted-background.bg-gray:has(> a.notion-link), 
 .super-content:not(.page__index):not(.cth-landing) { padding-bottom: 2rem !important; }
 .super-content:not(.page__index):not(.cth-landing) .notion-root { padding-bottom: 1rem !important; }
 .super-content-wrapper { min-height: 0; }
+
+/* one left edge: Super pads text and headings by 2px, which made them sit off the callouts and images */
+.notion-root > .notion-text, .notion-root > .notion-heading, .notion-root h2.notion-heading, .notion-root h3.notion-heading, .notion-root h1.notion-heading { padding-left: 0; }
+/* phones: tighter table cells so tables fit the screen */
+@media (max-width: 640px) { .notion-table__cell { padding: 0.6rem 0.7rem; } .notion-table { font-size: 0.8125rem; } }
