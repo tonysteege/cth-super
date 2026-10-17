@@ -1216,3 +1216,8 @@ html[data-cth-btn="flat"] .highlighted-background.bg-gray:has(> a.notion-link), 
 /* hero rotating word: the bold word in the hero heading is the pill, even without the script */
 :root:not([data-cth-hero="off"]) .notion-root > .notion-quote:first-child h1.notion-heading strong { display: inline-block; padding: 0 0.35em; font-weight: inherit; border: 1px solid var(--border); border-radius: var(--radius-md); background: color-mix(in oklab, var(--muted) 60%, var(--background)); white-space: nowrap; transition: opacity 220ms; }
 :root:not([data-cth-hero="off"]) .notion-root > .notion-quote:first-child h1.notion-heading strong.out { opacity: 0; }
+
+/* article pages: the title and the body share one left edge */
+.super-content:not(.page__index):not(.cth-landing) .notion-root { padding-left: 1rem; padding-right: 1rem; }
+.super-content:not(.page__index):not(.cth-landing) .notion-header__content { padding-left: 1rem; padding-right: 1rem; }
+.super-content:not(.page__index):not(.cth-landing) .notion-header__title, .super-content:not(.page__index):not(.cth-landing) .notion-header__title-wrapper { padding-left: 0; }
