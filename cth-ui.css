@@ -1294,3 +1294,4 @@ html[data-cth-subpages="hide"] .super-content[data-subpages="show"] a.notion-pag
 .super-content:has(.cth-tiers) .notion-header__content, .super-content:has(.cth-tiers) .notion-header__title-wrapper { text-align: center; }
 .super-content:has(.cth-tiers) .notion-header__title-wrapper { margin-bottom: 0.5rem; }
 .super-content:has(.cth-tiers) .notion-root > .notion-text:first-of-type { margin-top: 0; }
+.super-content:has(.cth-tiers) .notion-header__title { text-align: center; }
