@@ -4,6 +4,7 @@
    - Shows the Style Studio panel only when the page is opened with ?studio=1.
    Visitors never see the panel. */
 (function () {
+  if (window.__cthStudio) return; window.__cthStudio = 1;
   var D = document, H = D.documentElement;
   var CSS_URL = "https://cth-super.tonysteege.workers.dev/cth-ui.css";
   var JS_URL = "https://cth-super.tonysteege.workers.dev/cth-studio.js";
@@ -203,7 +204,9 @@
     if (r && sc && r.firstElementChild && r.firstElementChild.classList.contains("notion-quote")) sc.classList.add("cth-landing");
   }
   var pending = false, hydrated = false;
-  window.addEventListener("load", function () { setTimeout(function () { hydrated = true; schedule(); }, 1200); });
+  /* The script can load after the page finished (Super's editor preview adds it late), so do not wait for a load event that already happened. */
+  if (D.readyState === "complete") setTimeout(function () { hydrated = true; schedule(); }, 1200);
+  else window.addEventListener("load", function () { setTimeout(function () { hydrated = true; schedule(); }, 1200); });
   function applyBlocks() {
     pending = false;
     buildNav(); buildFooter(); markLanding(); markSubpages(); renderTiers();
