@@ -41,6 +41,10 @@ Landing pages (first block is a Quote) get the hero, grid, section headers, card
 
 `theme`, `font`, `radius`, `width`, `buttons`, `btn` (flow or flat), `navbar`, `headings`, `dividers`, `frame`, `pattern`, `grid`, `motion`, `colors`, `hero`, plus the accent colour and Color Mode (light, dark, follow visitor; default light).
 
+## Members and gated content
+
+Super Memberships gate pages by tier from the private Notion database Members (Email and Tier). The full setup, test results and rules are in the notion-super-site playbook (references/playbook.md, mirrored in the Notion AI database). Never put personal or minors' data on web-shared pages, gated or not.
+
 ## Gotchas
 
 - React hydration: the script waits about a second after load before editing page text, or React discards the edits.
