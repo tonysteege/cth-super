@@ -1239,3 +1239,8 @@ html[data-cth-btn="flat"] .highlighted-background.bg-gray:has(> a.notion-link), 
 .notion-to-do__icon { font-size: inherit; display: flex; align-items: center; justify-content: center; height: 1.6em; width: 1.125rem; margin: 0 !important; }
 .notion-checkbox { width: 1.125rem; height: 1.125rem; flex: 0 0 1.125rem; margin: 0; }
 .notion-checkbox svg { width: 0.875rem; height: 0.875rem; }
+
+/* article pages: no big empty block between the last content and the footer */
+.super-content:not(.page__index):not(.cth-landing) { padding-bottom: 2rem !important; }
+.super-content:not(.page__index):not(.cth-landing) .notion-root { padding-bottom: 1rem !important; }
+.super-content-wrapper { min-height: 0; }
