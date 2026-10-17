@@ -1322,7 +1322,7 @@ html[data-cth-navh="compact"] .cth-nav__bar { height: 3.25rem; }
 html[data-cth-navh="tall"] .cth-nav__bar { height: 5rem; }
 html[data-cth-secspace="compact"] :is(.page__index, .cth-landing) .notion-root > .notion-text:has(+ .notion-heading__anchor + h2.notion-heading) { margin-top: 3.5rem; }
 html[data-cth-secspace="spacious"] :is(.page__index, .cth-landing) .notion-root > .notion-text:has(+ .notion-heading__anchor + h2.notion-heading) { margin-top: 9rem; }
-html[data-cth-heroalign="left"] :root:not([data-cth-hero="off"]) .notion-root > .notion-quote:first-child, html[data-cth-heroalign="left"] .notion-root > .notion-quote:first-child { text-align: left; align-items: flex-start; }
+html[data-cth-heroalign="left"] .notion-root > .notion-quote:first-child { text-align: left; align-items: flex-start; }
 html[data-cth-heroalign="left"] .notion-root > .notion-quote:first-child::before { margin-left: 0; margin-right: auto; }
 html[data-cth-heroalign="left"] .notion-root > .notion-quote:first-child p.notion-text { margin-left: 0; margin-right: auto; }
 html:not(.theme-dark)[data-cth-bgcolor="soft"] { --background: oklch(0.975 0.004 250); }
