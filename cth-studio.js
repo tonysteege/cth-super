@@ -144,23 +144,20 @@
     if (key === "cards") return !!el.querySelector(".notion-column > .notion-callout:first-child");
     return true;
   }
-  /* Hero headline: "Accelerate Your {Skating, Puck Control} Development" cycles the words in braces. */
+  /* Hero headline: the bold word in the hero heading cycles through the Hero Words row of the Site table.
+     Without the script the bold word simply stays put, so no markup is ever visible. */
   function flipHero() {
     var h = D.querySelector(".notion-root > .notion-quote h1.notion-heading, .notion-root > .notion-quote h2.notion-heading");
-    if (!h || (h._cthFlip && h.contains(h._cthFlip))) return;
-    var t = firstText(h); if (!t) return;
-    var m = /\{([^}]+)\}/.exec(t.nodeValue); if (!m) return;
-    var words = m[1].split(",").map(function (w) { return w.trim(); }).filter(Boolean); if (!words.length) return;
-    var span = D.createElement("span"); span.className = "cth-flip"; span.textContent = words[0];
-    var after = D.createTextNode(t.nodeValue.slice(m.index + m[0].length));
-    t.nodeValue = t.nodeValue.slice(0, m.index);
-    t.parentNode.insertBefore(span, t.nextSibling); t.parentNode.insertBefore(after, span.nextSibling);
-    h._cthFlip = span;
+    if (!h || h._cthFlip) return;
+    var st = h.querySelector("strong, b"); if (!st) return;
+    var site = {}; table("site", "setting").forEach(function (r) { site[r[0].toLowerCase()] = r[1]; });
+    var words = (site["hero words"] || "").split(",").map(function (w) { return w.trim(); }).filter(Boolean);
+    h._cthFlip = st; st.classList.add("cth-flip");
     if (words.length < 2 || cfg.motion === "off" || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
-    var i = 0;
+    var i = Math.max(0, words.indexOf(st.textContent.trim()));
     setInterval(function () {
-      span.classList.add("out");
-      setTimeout(function () { i = (i + 1) % words.length; span.textContent = words[i]; span.classList.remove("out"); }, 220);
+      st.classList.add("out");
+      setTimeout(function () { i = (i + 1) % words.length; st.textContent = words[i]; st.classList.remove("out"); }, 220);
     }, 2400);
   }
   function markLanding() {
@@ -247,7 +244,7 @@
   var DEF = {
     navbar: [["Programs", "#Ways to train with me", "Link"], ["Camps", "https://coachtonyhockey.com/winter-camp-2026/", "Link"], ["Blog", "https://coachtonyhockey.com/blog", "Link"], ["Join Skills Lab", "https://coachtonyhockey.com/bookings/join/skills-lab", "Secondary Button"], ["Book a session", "https://coachtonyhockey.com/bookings/", "Button"]],
     footer: [["Programs", "Skills Lab", "https://coachtonyhockey.com/bookings/join/skills-lab"], ["Programs", "Sticktimes", "https://coachtonyhockey.com/bookings/"], ["Programs", "Downhill Skating Camp", "https://coachtonyhockey.com/winter-camp-2026/"], ["Explore", "Pricing", "#Pricing"], ["Explore", "FAQ", "#FAQ"], ["Explore", "Book a session", "https://coachtonyhockey.com/bookings/"]],
-    site: [["Site Name", "Coach Tony Hockey"], ["Tagline", "Accelerate your development."], ["Email", "tonysteege@coachtonyhockey.com"], ["Instagram", "http://instagram.com/coachtonyhockey"], ["YouTube", "https://www.youtube.com/@coachtonyhockey1214"]]
+    site: [["Site Name", "Coach Tony Hockey"], ["Tagline", "Accelerate your development."], ["Hero Words", "Skating, Puck Control, Passing, Shooting, Hockey IQ"], ["Email", "tonysteege@coachtonyhockey.com"], ["Instagram", "http://instagram.com/coachtonyhockey"], ["YouTube", "https://www.youtube.com/@coachtonyhockey1214"]]
   };
   var SOCIAL = {
     instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/>',

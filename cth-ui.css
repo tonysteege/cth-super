@@ -1212,3 +1212,7 @@ html[data-cth-btn="flat"] .highlighted-background.bg-gray:has(> a.notion-link), 
 :is(.page__index, .cth-landing) .notion-column-list:has(.notion-column > .notion-callout:first-child, .notion-column > .notion-quote:first-child) { flex-wrap: nowrap; gap: 1.5rem; }
 :is(.page__index, .cth-landing) .notion-column-list:has(.notion-column > .notion-callout:first-child, .notion-column > .notion-quote:first-child) .notion-column { flex: 1 1 0; width: auto !important; min-width: 0; margin: 0 !important; }
 @media (max-width: 860px) { :is(.page__index, .cth-landing) .notion-column-list:has(.notion-column > .notion-callout:first-child, .notion-column > .notion-quote:first-child) { flex-direction: column; } }
+
+/* hero rotating word: the bold word in the hero heading is the pill, even without the script */
+:root:not([data-cth-hero="off"]) .notion-root > .notion-quote:first-child h1.notion-heading strong { display: inline-block; padding: 0 0.35em; font-weight: inherit; border: 1px solid var(--border); border-radius: var(--radius-md); background: color-mix(in oklab, var(--muted) 60%, var(--background)); white-space: nowrap; transition: opacity 220ms; }
+:root:not([data-cth-hero="off"]) .notion-root > .notion-quote:first-child h1.notion-heading strong.out { opacity: 0; }
