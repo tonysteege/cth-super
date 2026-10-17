@@ -25,7 +25,8 @@
     { k: "motion", label: "Animations", opts: [["", "On"], ["off", "Off"]] },
     { k: "mode", label: "Color Mode", opts: [["", "Light"], ["dark", "Dark"], ["auto", "Follow Visitor"]] },
     { k: "colors", label: "Callout Colors", opts: [["", "Themed"], ["notion", "Notion Colors"]] },
-    { k: "hero", label: "Top Quote as Hero", opts: [["", "On"], ["off", "Off"]] }
+    { k: "hero", label: "Top Quote as Hero", opts: [["", "On"], ["off", "Off"]] },
+    { k: "subpages", label: "Sub-Pages", opts: [["", "Show"], ["hide", "Hide"]] }
   ];
   var BLOCKS = [
     { k: "callout", label: "Callouts", opts: [["", "Alert"], ["soft", "Soft"], ["outline", "Outline"], ["solid", "Solid"], ["bar", "Side Bar"], ["brand", "Brand Tint"]] },
@@ -160,6 +161,17 @@
       setTimeout(function () { i = (i + 1) % words.length; st.textContent = words[i]; st.classList.remove("out"); }, 220);
     }, 2400);
   }
+  /* Per-page sub-page control: type {hide-subpages} or {show-subpages} at the start of the page's first block. */
+  function markSubpages() {
+    var sc = D.querySelector(".super-content"), r = D.querySelector(".notion-root");
+    if (!sc || !r) return;
+    if (!sc._cthSub) {
+      var b = r.querySelector(".notion-text, .notion-callout, .notion-quote, .notion-heading");
+      var t = b && firstText(b), m = t && /^\s*\{(hide|show)-subpages\}\s*/i.exec(t.nodeValue);
+      if (m) { sc._cthSub = m[1].toLowerCase(); if (hydrated) t.nodeValue = t.nodeValue.replace(m[0], ""); }
+    }
+    if (sc._cthSub) sc.setAttribute("data-subpages", sc._cthSub); 
+  }
   function markLanding() {
     var r = D.querySelector(".notion-root"), sc = D.querySelector(".super-content");
     if (r && sc && r.firstElementChild && r.firstElementChild.classList.contains("notion-quote")) sc.classList.add("cth-landing");
@@ -168,7 +180,7 @@
   window.addEventListener("load", function () { setTimeout(function () { hydrated = true; schedule(); }, 1200); });
   function applyBlocks() {
     pending = false;
-    buildNav(); buildFooter(); markLanding();
+    buildNav(); buildFooter(); markLanding(); markSubpages();
     if (!hydrated) return;
     addIcons(); finishing();
     flipHero();

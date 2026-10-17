@@ -1250,3 +1250,8 @@ html[data-cth-btn="flat"] .highlighted-background.bg-gray:has(> a.notion-link), 
 /* phones: tighter table cells so tables fit the screen */
 @media (max-width: 640px) { .notion-table__cell { padding: 0.6rem 0.7rem; } .notion-table { font-size: 0.8125rem; } }
 @media (max-width: 640px) { .notion-table td { min-width: 0 !important; max-width: none !important; } }
+
+/* Sub-pages: Style Settings "Sub-Pages" (Show or Hide) site-wide, or {hide-subpages} / {show-subpages} on a page */
+html[data-cth-subpages="hide"] .super-content a.notion-page { display: none; }
+html[data-cth-subpages="hide"] .super-content[data-subpages="show"] a.notion-page { display: flex; }
+.super-content[data-subpages="hide"] a.notion-page { display: none !important; }
