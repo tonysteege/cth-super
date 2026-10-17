@@ -1286,3 +1286,6 @@ html[data-cth-subpages="hide"] .super-content[data-subpages="show"] a.notion-pag
 .super-content:not(.cth-landing):has(.cth-tiers) .notion-root > .notion-text:first-of-type { text-align: center; color: var(--muted-foreground); font-size: 1.125rem; max-width: 36rem; margin: 0 auto 1.5rem; }
 .super-content:not(.cth-landing):has(.cth-tiers) .page__title, .super-content:has(.cth-tiers) .notion-page__title { text-align: center; }
 .super-content:has(.cth-tiers) .cth-tiers { margin-top: 2rem; }
+
+/* Home with no cover: the empty banner is hidden, so the hero no longer needs to be pulled up under the navbar */
+.page__index:has(.notion-header__cover.no-cover) .notion-root { margin-top: 0; }
