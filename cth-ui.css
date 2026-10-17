@@ -1272,3 +1272,5 @@ html[data-cth-subpages="hide"] .super-content[data-subpages="show"] a.notion-pag
 .cth-tier ul { list-style: none; margin: 0.5rem 0 0; padding: 1.1rem 0 0; border-top: 1px solid var(--border); }
 .cth-tier li { position: relative; padding-left: 1.5rem; margin: 0.55rem 0; color: var(--muted-foreground); font-size: 0.9375rem; }
 .cth-tier li::before { content: ""; position: absolute; left: 0; top: 0.35em; width: 0.9rem; height: 0.9rem; background: var(--foreground); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center / contain no-repeat; }
+.cth-tiers[data-n="4"] { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 640px) { .cth-tiers[data-n="4"] { grid-template-columns: 1fr; } }

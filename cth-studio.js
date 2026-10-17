@@ -186,7 +186,7 @@
     D.querySelectorAll(".notion-collection").forEach(function (col) {
       if (col._cthTiers || !/^\s*Tiers/i.test(col.textContent)) return;
       col._cthTiers = true; col.classList.add("cth-tiers-src");
-      var box = D.createElement("div"); box.className = "cth-tiers";
+      var box = D.createElement("div"); box.className = "cth-tiers"; box.setAttribute("data-n", list.length);
       box.innerHTML = list.map(function (t) {
         var price = t.price ? "$" + esc(t.price) : "Free", unit = t.unit ? '<span>' + esc(t.unit) + "</span>" : "";
         return '<article class="cth-tier' + (t.recommended ? " is-rec" : "") + '"><div class="cth-tier__head"><h3>' + esc(t.name) + "</h3>" + (t.recommended ? '<em>Popular</em>' : "") + "</div>" +
