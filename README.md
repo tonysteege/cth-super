@@ -4,6 +4,10 @@ The shadcn layer for the Super.so site (cthcom.super.site, Notion page CTH.com).
 
 The owner's manual lives in Notion: CTH.com / x. Backend / **Site Guide**. This file is the technical map.
 
+## Connected Notion AI Maintenance
+
+Notion AI can read, edit, test and deploy this custom-code layer through the connected GitHub and Cloudflare tools. Claude Code and access to Tony's Mac are not required. Start with [the maintenance guide](docs/notion-ai.md) and the current Notion Super Site Skill. Access depends on authorized connections; Super dashboard settings and runtime payment/email secrets are separate.
+
 ## Files
 
 | File | What |
